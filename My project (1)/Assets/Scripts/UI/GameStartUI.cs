@@ -2,11 +2,22 @@ using UnityEngine;
 
 public class GameStartUI : MonoBehaviour
 {
+    BallInput input;
+
+    private void OnEnable()
+    {
+        input.UI.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.UI.Disable();
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) return;
+        if (input.UI.Pause.WasPressedThisFrame()) return;
 
-        if (Input.anyKeyDown)
+        if (input.UI.Anykey.WasPerformedThisFrame())
             StageGameManager.instance.ChangeGameState(GameState.Playing);
     }
 }

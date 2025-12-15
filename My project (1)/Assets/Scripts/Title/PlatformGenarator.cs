@@ -11,8 +11,11 @@ public class PlatformGenarator : MonoBehaviour
 
     List<GameObject> chunks = new List<GameObject>(); // 청크 리스트
 
+    Transform mainCamTransform;
+
     void Start()
     {
+        mainCamTransform = Camera.main.transform; // 시작할 때 한 번만 찾기
         SpawnChunks();
     }
 
@@ -70,7 +73,7 @@ public class PlatformGenarator : MonoBehaviour
         if (chunks.Count > 0)
         {
             GameObject firstChunk = chunks[0];
-            if (firstChunk.transform.position.z <= Camera.main.transform.position.z - 80f)
+            if (firstChunk.transform.position.z <= mainCamTransform.position.z - 80f)
             {
                 chunks.RemoveAt(0);
                 Destroy(firstChunk);

@@ -14,6 +14,7 @@ public class StageGameManager : MonoBehaviour
 {
     public static StageGameManager instance;
 
+    BallInput input;
     public GameState currentGameState { get; private set; }
     public GameState previousGameState;
     [Header("UI¿¬°á")]
@@ -41,6 +42,15 @@ public class StageGameManager : MonoBehaviour
         ChangeGameState(GameState.Start);
     }
 
+    private void OnEnable()
+    {
+        input.UI.Enable();
+    }
+    private void OnDisable()
+    {
+        input.UI.Disable();
+    }
+
     private void Update()
     {
         bool flowControl = PauseState();
@@ -54,7 +64,7 @@ public class StageGameManager : MonoBehaviour
     private bool PauseState()
     {
         if (currentGameState == GameState.GameClear) return false;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (input.UI.Pause.WasPerformedThisFrame())
         {
             if (currentGameState == GameState.Paused)
             {
