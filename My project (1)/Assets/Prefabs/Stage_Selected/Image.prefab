@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3589954718273932804}
   - component: {fileID: 7572338780824096459}
   - component: {fileID: 7129438999922774145}
+  - component: {fileID: 4316953780995443462}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -121,6 +122,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4316953780995443462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263416479929210664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e818a72bd5cec64b91ede2a2e20ff75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Stage_Slot
+  slotNumberText: {fileID: 4315527537260624450}
+  selected: {fileID: 7129438999922774145}
+  number: 0
 --- !u!1 &7773685828891951160
 GameObject:
   m_ObjectHideFlags: 0
