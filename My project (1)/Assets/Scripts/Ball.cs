@@ -5,6 +5,9 @@ public class Ball : MonoBehaviour
     [Header("컴포넌트")]
     Rigidbody rb;
     BallInput input;
+    [Header("카메라")]
+    [Tooltip("CinemachineCameraController가 붙은 오브젝트")]
+    public Transform cameraTransform;
     [Header("볼 상세설정")]
     [SerializeField] string GroundTag = "Ground"; // 땅감지 태그
     [Tooltip("움직임")]
@@ -13,6 +16,11 @@ public class Ball : MonoBehaviour
     [Tooltip("관성")]
     [SerializeField] float inertia = 0.1f; // 관성 감속
     Vector3 currentVelocityRef; // 관성 속도 참조
+
+    bool cantMove => 
+        StageGameManager.instance.currentGameState == GameState.GameOver ||
+        StageGameManager.instance.currentGameState == GameState.Paused ||
+        StageGameManager.instance.currentGameState == GameState.GameClear;
 
     Vector3 moveDir; // 이동 방향
     private void Awake()
@@ -24,16 +32,26 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(cantMove)
+        {
+            return;
+        }
+
     }
 
     private void FixedUpdate()
     {
+        if (cantMove)
+        {
+            return;
+        }
+
         movement();
     }
 
@@ -41,8 +59,21 @@ public class Ball : MonoBehaviour
     private void movement()
     {
         Debug.Log(moveDir);
+
+        // 카메라 기준 이동 방향 변환
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
+
+        // 카메라 수평 방향만 사용
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 targetMoveDir = (camForward * moveDir.z)+ (camRight * moveDir.x);
+
         // 이동 방향 벡터 생성
-        Vector3 movement = new Vector3(moveDir.x, 0, moveDir.z) * moveSpeed;
+        Vector3 movement = targetMoveDir * moveSpeed;
         // 현재 수평 속도 벡터 생성
         Vector3 newVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
@@ -91,5 +122,11 @@ public class Ball : MonoBehaviour
             }
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
+    }
+
+    public void Die()
+    {
+        this.gameObject.SetActive( false );
+        StageGameManager.instance.ChangeGameState(GameState.GameOver);
     }
 }

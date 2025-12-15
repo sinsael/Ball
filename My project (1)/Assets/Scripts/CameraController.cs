@@ -35,6 +35,7 @@ public class CinemachineCameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (StageGameManager.instance.currentGameState == GameState.Paused || StageGameManager.instance.currentGameState == GameState.GameClear) return;
         if (playerBall == null) return;
         if (Mouse.current == null) return;
 
