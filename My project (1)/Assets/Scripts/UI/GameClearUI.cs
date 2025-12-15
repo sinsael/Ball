@@ -21,18 +21,18 @@ public class GameClearUI : MonoBehaviour
     void OnClick_Next()
     {
         Debug.Log("Next Level Clicked");
-        // 다음 레벨 로드 로직 추가
+        SceneManager.LoadScene(nextLevelSceneName);
     }
 
     void OnClick_Restart()
     {
         Debug.Log("Restart Level Clicked");
-        SceneManager.LoadScene(mainMenuSceneName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void OnClick_Quit()
     {
         Debug.Log("Quit to Main Menu Clicked");
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }

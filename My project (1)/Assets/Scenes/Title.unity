@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 1001171688}
   - component: {fileID: 1001171687}
   m_Layer: 5
-  m_Name: Start (3)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,8 +711,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 607, y: -400}
-  m_SizeDelta: {x: 1920, y: 30}
+  m_AnchoredPosition: {x: 600, y: -400}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001171687
 MonoBehaviour:
@@ -809,7 +809,7 @@ GameObject:
   - component: {fileID: 1115438227}
   - component: {fileID: 1115438226}
   m_Layer: 5
-  m_Name: Start (2)
+  m_Name: Option
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -949,10 +949,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1001171686}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.5, y: 0}
-  m_SizeDelta: {x: -5, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1183221588
 MonoBehaviour:
@@ -1066,6 +1066,7 @@ GameObject:
   - component: {fileID: 1387112303}
   - component: {fileID: 1387112302}
   - component: {fileID: 1387112301}
+  - component: {fileID: 1387112305}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1160,6 +1161,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1387112305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387112300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aefa86dcafa2b5e47a42d9d348543230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Title_UI
+  startBtn: {fileID: 2046099917}
+  achivementsBtn: {fileID: 1855451389}
+  optionBtn: {fileID: 1115438226}
+  quitBtn: {fileID: 1001171687}
+  gameSceneName: Stage_Selected
 --- !u!1 &1403557335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1731,7 @@ GameObject:
   - component: {fileID: 1855451390}
   - component: {fileID: 1855451389}
   m_Layer: 5
-  m_Name: Start (1)
+  m_Name: Achivements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
