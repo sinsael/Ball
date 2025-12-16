@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float inertia = 0.1f; // 관성 감속
     Vector3 currentVelocityRef; // 관성 속도 참조
 
-    bool cantMove => 
+    bool cantMove =>
         StageGameManager.instance.currentGameState == GameState.GameOver ||
         StageGameManager.instance.currentGameState == GameState.Paused ||
         StageGameManager.instance.currentGameState == GameState.GameClear;
@@ -38,7 +38,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cantMove)
+        if (cantMove)
         {
             return;
         }
@@ -70,7 +70,7 @@ public class Ball : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 targetMoveDir = (camForward * moveDir.z)+ (camRight * moveDir.x);
+        Vector3 targetMoveDir = (camForward * moveDir.z) + (camRight * moveDir.x);
 
         // 이동 방향 벡터 생성
         Vector3 movement = targetMoveDir * moveSpeed;
@@ -118,15 +118,23 @@ public class Ball : MonoBehaviour
 
             if (contact.normal.y > 0.7f)
             {
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // 수직 속도 초기화
+                // 2. [중요] 이미 튀어 오르고 있는 중이라면(이중 충돌) 무시
+                // 피직스 머티리얼 때문에 순간적으로 속도가 튈 수 있으므로, 
+                // 확실히 내려오거나 속도가 낮은 상태일 때만 적용합니다.
+                if (rb.linearVelocity.y <= 5f)
+                {
+                    // 3. AddForce 삭제! 속도를 직접 덮어씌웁니다.
+                    // 이렇게 하면 피직스 머티리얼의 반발력을 무시하고 무조건 설정한 속도로만 튑니다.
+                    Vector3 currentVel = rb.linearVelocity;
+                    rb.linearVelocity = new Vector3(currentVel.x, bounceForce, currentVel.z);
+                }
             }
-            rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
         }
     }
 
     public void Die()
     {
-        this.gameObject.SetActive( false );
+        this.gameObject.SetActive(false);
         StageGameManager.instance.ChangeGameState(GameState.GameOver);
     }
 }
