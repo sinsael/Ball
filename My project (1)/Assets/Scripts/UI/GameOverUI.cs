@@ -5,6 +5,11 @@ public class GameOverUI : MonoBehaviour
 {
     BallInput input;
 
+    private void Awake()
+    {
+        input = new BallInput();
+    }
+
     private void OnEnable()
     {
         input.UI.Enable();

@@ -4,6 +4,11 @@ public class GameStartUI : MonoBehaviour
 {
     BallInput input;
 
+    private void Awake()
+    {
+        input = new BallInput();
+    }
+
     private void OnEnable()
     {
         input.UI.Enable();

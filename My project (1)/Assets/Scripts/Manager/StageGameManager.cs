@@ -28,12 +28,13 @@ public class StageGameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            input = new BallInput();
+            Cursor.visible = false;
         }
         else
         {
             Destroy(gameObject);
         }
-
     }
 
     private void Start()
@@ -100,21 +101,26 @@ public class StageGameManager : MonoBehaviour
             case GameState.None:
                 break;
             case GameState.Start:
+                Cursor.visible = false;
                 GameStartUI.SetActive(true);
                 Time.timeScale = 1f;
                 break;
             case GameState.Playing:
+                Cursor.visible = false;
                 Time.timeScale = 1f;
                 break;
             case GameState.Paused:
+                Cursor.visible = true;
                 GamePauseUI.SetActive(true);
                 Time.timeScale = 0.25f;
                 break;
             case GameState.GameOver:
+                Cursor.visible = true;
                 GameOverUI.SetActive(true);
                 Time.timeScale = 0.25f;
                 break;
             case GameState.GameClear:
+                Cursor.visible = true;
                 GameClearUI.SetActive(true);
                 Time.timeScale = 1f;
                 break;

@@ -1068,7 +1068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3803193730663324145, guid: 53c07d432879d2745badbf10723518b8, type: 3}
       propertyPath: mainMenuSceneName
-      value: Title
+      value: Stage_Selected
       objectReference: {fileID: 0}
     - target: {fileID: 4487086358819117099, guid: 53c07d432879d2745badbf10723518b8, type: 3}
       propertyPath: m_Name
@@ -1153,6 +1153,10 @@ PrefabInstance:
     - target: {fileID: 6198519134644961545, guid: 53c07d432879d2745badbf10723518b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911872286263323208, guid: 53c07d432879d2745badbf10723518b8, type: 3}
+      propertyPath: mainMenuSceneName
+      value: Stage_Selected
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class CinemachineCameraController : MonoBehaviour
 {
+    BallInput input;
+
     [Header("추적 대상")]
     [Tooltip("따라다닐 공(Player) 오브젝트를 여기에 넣으세요")]
     public Transform playerBall; // ★ 수정됨: 추적할 공
@@ -24,6 +26,20 @@ public class CinemachineCameraController : MonoBehaviour
     // 내부 변수
     private float _targetYaw;
     private float _targetPitch;
+
+    private void Awake()
+    {
+        input = new BallInput();
+    }
+
+    private void OnEnable()
+    {
+        input.Camera.Enable();
+    }
+    private void OnDisable()
+    {
+        input.Camera.Disable();
+    }
 
     void Start()
     {
@@ -44,7 +60,7 @@ public class CinemachineCameraController : MonoBehaviour
         transform.position = playerBall.position;
 
         // 2. 마우스 입력 계산
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+        Vector2 mouseDelta = input.Camera.Look.ReadValue<Vector2>();
 
         float mouseX = mouseDelta.x * mouseSensitivity;
         float mouseY = mouseDelta.y * mouseSensitivity;

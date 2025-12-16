@@ -29,6 +29,7 @@ public class GamePauseUI : MonoBehaviour
     private void OnClick_Option()
     {
         Debug.Log("Option Clicked");
+        Comming_Soon_Popup.instance.OpenPopup();
     }
     private void OnClick_Quit()
     {

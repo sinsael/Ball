@@ -11,6 +11,8 @@ public class Title_UI : MonoBehaviour
     [SerializeField] string gameSceneName = "Selected";
     void Start()
     {
+        Time.timeScale = 1f;
+        Cursor.visible = true;
         startBtn.onClick.AddListener(OnClick_Start);
         achivementsBtn.onClick.AddListener(OnClick_Achivements);
         optionBtn.onClick.AddListener(OnClick_Option);
@@ -25,13 +27,13 @@ public class Title_UI : MonoBehaviour
     void OnClick_Achivements()
     {
         Debug.Log("Achievements Button Clicked");
-        // Open achievements UI or perform other actions
+        Comming_Soon_Popup.instance.OpenPopup();
     }
 
     void OnClick_Option()
     {
         Debug.Log("Option Button Clicked");
-        // Open options UI or perform other actions
+        Comming_Soon_Popup.instance.OpenPopup();
     }
     void OnClick_Quit()
     {

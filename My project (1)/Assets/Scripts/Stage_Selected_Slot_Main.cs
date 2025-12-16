@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Stage_Selected_Slot_Main : MonoBehaviour
 {
     [SerializeField] GameObject slot;
+    [SerializeField] GameObject exitPopup;
     [SerializeField] int slotCount;
     [SerializeField] Stage_Select_Popup sp;
 
@@ -12,10 +13,36 @@ public class Stage_Selected_Slot_Main : MonoBehaviour
 
     List<string> existingScenes = new List<string>(); // 빌드 설정에 있는 씬 이름 저장
 
+    BallInput input;
+
+    private void Awake()
+    {
+        input = new BallInput();
+    }
+
+    private void OnEnable()
+    {
+        input.UI.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.UI.Disable();
+    }
+
     void Start()
     {
+        Cursor.visible = true;
         CheckExistingScene();
         GenerateSlot();
+    }
+
+    private void Update()
+    {
+        if (input.UI.Pause.WasPressedThisFrame())
+        {
+            exitPopup.gameObject.SetActive(true);
+        }
     }
 
     void CheckExistingScene()

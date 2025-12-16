@@ -673,8 +673,8 @@ MonoBehaviour:
   nextBtn: {fileID: 7520512512610577137}
   restartBtn: {fileID: 157158509169617179}
   quitBtn: {fileID: 4210836298375741539}
-  mainMenuSceneName: MainMenu
-  nextLevelSceneName: NextLevel
+  mainMenuSceneName: Stage_Selected
+  nextLevelSceneName: Stage_2
 --- !u!1 &3361025930971992050
 GameObject:
   m_ObjectHideFlags: 0
