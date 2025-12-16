@@ -1,6 +1,7 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Stage_Select_Popup : MonoBehaviour
@@ -27,6 +28,10 @@ public class Stage_Select_Popup : MonoBehaviour
 
         gameObject.SetActive(true);
         Debug.Log($"{stageNumber} º±≈√");
+        if (startBtn != null)
+        {
+            EventSystem.current.SetSelectedGameObject(startBtn.gameObject);
+        }
     }
 
     void OnClick_Start()
