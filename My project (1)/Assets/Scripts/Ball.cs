@@ -60,6 +60,8 @@ public class Ball : MonoBehaviour
     {
         Debug.Log(moveDir);
 
+        Vector3 clampedMoveDir = Vector3.ClampMagnitude(moveDir, 1f);
+
         // 카메라 기준 이동 방향 변환
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
@@ -70,7 +72,7 @@ public class Ball : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
-        Vector3 targetMoveDir = (camForward * moveDir.z) + (camRight * moveDir.x);
+        Vector3 targetMoveDir = (camForward * clampedMoveDir.z) + (camRight * clampedMoveDir.x);
 
         // 이동 방향 벡터 생성
         Vector3 movement = targetMoveDir * moveSpeed;
@@ -118,16 +120,9 @@ public class Ball : MonoBehaviour
 
             if (contact.normal.y > 0.7f)
             {
-                // 2. [중요] 이미 튀어 오르고 있는 중이라면(이중 충돌) 무시
-                // 피직스 머티리얼 때문에 순간적으로 속도가 튈 수 있으므로, 
-                // 확실히 내려오거나 속도가 낮은 상태일 때만 적용합니다.
-                if (rb.linearVelocity.y <= 5f)
-                {
-                    // 3. AddForce 삭제! 속도를 직접 덮어씌웁니다.
-                    // 이렇게 하면 피직스 머티리얼의 반발력을 무시하고 무조건 설정한 속도로만 튑니다.
-                    Vector3 currentVel = rb.linearVelocity;
-                    rb.linearVelocity = new Vector3(currentVel.x, bounceForce, currentVel.z);
-                }
+                Vector3 currentVel = rb.linearVelocity;
+
+                rb.linearVelocity = new Vector3(currentVel.x, bounceForce, currentVel.z);
             }
         }
     }

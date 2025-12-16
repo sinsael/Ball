@@ -117,7 +117,7 @@ public class StageGameManager : MonoBehaviour
             case GameState.GameOver:
                 Cursor.visible = true;
                 GameOverUI.SetActive(true);
-                Time.timeScale = 0.25f;
+                Time.timeScale = 1;
                 break;
             case GameState.GameClear:
                 Cursor.visible = true;
