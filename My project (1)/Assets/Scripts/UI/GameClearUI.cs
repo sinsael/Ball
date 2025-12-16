@@ -8,7 +8,6 @@ public class GameClearUI : MonoBehaviour
     [SerializeField] Button restartBtn;
     [SerializeField] Button quitBtn;
     [SerializeField] string mainMenuSceneName = "MainMenu";
-    [SerializeField] string nextLevelSceneName = "NextLevel";
 
 
     private void Start()
@@ -20,8 +19,18 @@ public class GameClearUI : MonoBehaviour
 
     void OnClick_Next()
     {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        int totalScenes = SceneManager.sceneCountInBuildSettings;
         Debug.Log("Next Level Clicked");
-        SceneManager.LoadScene(nextLevelSceneName);
+        if (currentIndex + 1 >= totalScenes)
+        {
+            Debug.Log("다음 씬 없음");
+            Comming_Soon_Popup.instance.OpenPopup();
+        }
+        else
+        {
+            SceneManager.LoadScene(currentIndex + 1);
+        }
     }
 
     void OnClick_Restart()
