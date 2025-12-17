@@ -1,18 +1,33 @@
 using UnityEngine;
+using System.Collections;
 
 public class Ball : MonoBehaviour
 {
     [Header("컴포넌트")]
     Rigidbody rb;
     BallInput input;
+
+    [Header("아이템")]
+    [Tooltip("아이템 데이터 저장")]
+    [SerializeField] ItemDataSO currentItemData;
+    public bool isEffectActive = false;
+    public bool stopItemRequest = false;
+    private Coroutine activeItemCoroutine;
+
     [Header("카메라")]
-    [Tooltip("CinemachineCameraController가 붙은 오브젝트")]
+    [Tooltip("방향 참조용")]
     public Transform cameraTransform;
+    [Tooltip("카메라 줌 인/아웃 용")]
+    public CinemachineCameraController cameraContorller;
+
     [Header("볼 상세설정")]
     [SerializeField] string GroundTag = "Ground"; // 땅감지 태그
+
     [Tooltip("움직임")]
     public float bounceForce = 5f; // 공 튕기는 힘
     public float moveSpeed = 5f; // 공 이동 속도
+    Vector3 moveDir; // 이동 방향
+
     [Tooltip("관성")]
     [SerializeField] float inertia = 0.1f; // 관성 감속
     Vector3 currentVelocityRef; // 관성 속도 참조
@@ -22,11 +37,15 @@ public class Ball : MonoBehaviour
         StageGameManager.instance.currentGameState == GameState.Paused ||
         StageGameManager.instance.currentGameState == GameState.GameClear;
 
-    Vector3 moveDir; // 이동 방향
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         input = new BallInput();
+
+        if (cameraContorller != null)
+        {
+            cameraContorller = cameraTransform.GetComponent<CinemachineCameraController>();
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,19 +57,13 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cantMove)
-        {
-            return;
-        }
+        if (cantMove) return;
 
     }
 
     private void FixedUpdate()
     {
-        if (cantMove)
-        {
-            return;
-        }
+        if (cantMove) return;
 
         movement();
     }
@@ -60,6 +73,7 @@ public class Ball : MonoBehaviour
     {
         Debug.Log(moveDir);
 
+        // 이동 방향 벡터 정규화
         Vector3 clampedMoveDir = Vector3.ClampMagnitude(moveDir, 1f);
 
         // 카메라 기준 이동 방향 변환
@@ -72,6 +86,7 @@ public class Ball : MonoBehaviour
         camForward.Normalize();
         camRight.Normalize();
 
+        // 최종 이동 방향 계산
         Vector3 targetMoveDir = (camForward * clampedMoveDir.z) + (camRight * clampedMoveDir.x);
 
         // 이동 방향 벡터 생성
@@ -87,6 +102,7 @@ public class Ball : MonoBehaviour
             inertia
         );
 
+        // 최종 속도 적용 (수평 + 수직)
         rb.linearVelocity = new Vector3(
             newHorizontalVelocity.x,
             rb.linearVelocity.y,
@@ -94,22 +110,17 @@ public class Ball : MonoBehaviour
         );
     }
 
-    private void movementInput()
-    {
-        input.Ball.Move.performed += ctx => moveDir = ctx.ReadValue<Vector3>();
-        input.Ball.Move.canceled += ctx => moveDir = Vector3.zero;
-    }
-
     private void OnEnable()
     {
         input.Enable();
-        movementInput();
+
+        input.Ball.Move.performed += ctx => moveDir = ctx.ReadValue<Vector3>();
+        input.Ball.Move.canceled += ctx => moveDir = Vector3.zero;
     }
 
     private void OnDisable()
     {
         input.Disable();
-        movementInput();
     }
 
     private void OnCollisionEnter(Collision collision)

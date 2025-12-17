@@ -615,26 +615,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc0302cbd37cc384699bc96a48f8ee9f, type: 3}
---- !u!1 &354691666 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 283440489177531912, guid: 436908bca8dbff7448cfff7794455c50, type: 3}
-  m_PrefabInstance: {fileID: 7077468837507875593}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &354691669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354691666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33ea17675052f8e478cce5eb9640f5dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  scoreText: {fileID: 913173353}
-  totalScore: 0
-  score: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +854,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf91801810d21842a59f63987d0bf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
+  currentItemData: {fileID: 0}
+  isEffectActive: 0
+  stopItemRequest: 0
   cameraTransform: {fileID: 1620519774}
+  cameraContorller: {fileID: 0}
   GroundTag: Ground
   bounceForce: 5
   moveSpeed: 5
@@ -1536,13 +1520,14 @@ PrefabInstance:
       propertyPath: GameStartUI
       value: 
       objectReference: {fileID: 611748276}
+    - target: {fileID: 8712251972135429693, guid: 436908bca8dbff7448cfff7794455c50, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 913173353}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 283440489177531912, guid: 436908bca8dbff7448cfff7794455c50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 354691669}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 436908bca8dbff7448cfff7794455c50, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
