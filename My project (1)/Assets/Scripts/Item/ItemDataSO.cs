@@ -6,4 +6,5 @@ public abstract class ItemDataSO : ScriptableObject
     public bool isEffect;
 
     public abstract void Effect(Ball user);
+    //1
 }
