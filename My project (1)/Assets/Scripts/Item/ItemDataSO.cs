@@ -1,7 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemDataSO", menuName = "Scriptable Objects/ItemDataSO")]
-public class ItemDataSO : ScriptableObject
+public abstract class ItemDataSO : ScriptableObject
 {
-    
+    public int point;
+    public bool isEffect;
+
+    public abstract void Effect(Ball user);
 }

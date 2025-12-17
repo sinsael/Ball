@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public int point;
+    public ItemDataSO itemData;
     [SerializeField] protected string playerTag = "Player";
 
     
@@ -10,9 +10,7 @@ public class Item : MonoBehaviour
     {
         if(other.CompareTag(playerTag))
         {
-            Debug.Log($"Item Collected! +{point} points");
-            ScoreManager.instance.AddScore(point);
-            Destroy(gameObject);
+            itemData.Effect();
         }
     }
 }
