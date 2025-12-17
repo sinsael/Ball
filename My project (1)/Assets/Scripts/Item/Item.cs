@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
         if(other.CompareTag(playerTag))
         {
             Debug.Log($"Item Collected! +{point} points");
+            ScoreManager.instance.AddScore(point);
             Destroy(gameObject);
         }
     }
