@@ -4,9 +4,11 @@ using UnityEngine;
 public class BallItemSystem : MonoBehaviour
 {
     [Header("연결 필요")]
-    [SerializeField] BallMovement movement;
-    [SerializeField] CinemachineCameraController cameraController;
-    [SerializeField] GameObject crosshairUI;
+    public BallMovement movement;
+    public CinemachineCameraController cameraController;
+    public GameObject crosshairUI;
+
+    GameInput input;
 
     [Header("아이템 상태")]
     [SerializeField] ItemDataSO currentItemData;
@@ -26,9 +28,24 @@ public class BallItemSystem : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        input.Ball.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Ball.Disable();
+    }
+
+
+    public void SetItem(ItemDataSO newItem)
+    {
+        currentItemData = newItem;
+    }
+
+    void UseItem()
+    {
+        currentItemData.Effect(this);
     }
 }

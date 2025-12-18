@@ -9,17 +9,13 @@ public class Item : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        BallMovement ball = other.GetComponent<BallMovement>();
+        BallItemSystem ballSystem = other.GetComponent<BallItemSystem>();
 
-        if(ball != null)
+        if(ballSystem != null)
         {
-           // bool isPickedUp = ball.PickUpItem(itemData);
+           ballSystem.SetItem(itemData);
 
-            //// 줍기 성공했다면 이 오브젝트는 삭제 (데이터는 플레이어에게 넘어감)
-            //if (isPickedUp)
-            //{
-            //    Destroy(gameObject);
-            //}
+            Destroy(this.gameObject);
         }
     }
 }
