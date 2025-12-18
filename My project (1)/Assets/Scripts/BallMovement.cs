@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class Ball : MonoBehaviour
+public class BallMovement : MonoBehaviour
 {
     [Header("컴포넌트")]
     Rigidbody rb;
-    BallInput input;
+    InputHandler inputHandler;
 
     [Header("아이템")]
     [Tooltip("아이템 데이터 저장")]
@@ -26,7 +26,6 @@ public class Ball : MonoBehaviour
     [Tooltip("움직임")]
     public float bounceForce = 5f; // 공 튕기는 힘
     public float moveSpeed = 5f; // 공 이동 속도
-    Vector3 moveDir; // 이동 방향
 
     [Tooltip("관성")]
     [SerializeField] float inertia = 0.1f; // 관성 감속
@@ -40,7 +39,7 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        input = new BallInput();
+        inputHandler = GetComponent<InputHandler>();
 
         if (cameraContorller != null)
         {
@@ -65,16 +64,17 @@ public class Ball : MonoBehaviour
     {
         if (cantMove) return;
 
-        movement();
+        Vector3 dir = inputHandler.MoveDirection;
+
+        movement(dir);
     }
 
     // 공 이동
-    private void movement()
+    private void movement(Vector3 moveinput)
     {
-        Debug.Log(moveDir);
 
         // 이동 방향 벡터 정규화
-        Vector3 clampedMoveDir = Vector3.ClampMagnitude(moveDir, 1f);
+        Vector3 clampedMoveDir = Vector3.ClampMagnitude(moveinput, 1f);
 
         // 카메라 기준 이동 방향 변환
         Vector3 camForward = cameraTransform.forward;
@@ -108,19 +108,6 @@ public class Ball : MonoBehaviour
             rb.linearVelocity.y,
             newHorizontalVelocity.z
         );
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
-
-        input.Ball.Move.performed += ctx => moveDir = ctx.ReadValue<Vector3>();
-        input.Ball.Move.canceled += ctx => moveDir = Vector3.zero;
-    }
-
-    private void OnDisable()
-    {
-        input.Disable();
     }
 
     private void OnCollisionEnter(Collision collision)

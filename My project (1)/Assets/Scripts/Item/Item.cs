@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        Ball ball = other.GetComponent<Ball>();
+        BallMovement ball = other.GetComponent<BallMovement>();
 
         if(ball != null)
         {

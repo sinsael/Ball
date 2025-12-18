@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum GameState
 {
@@ -14,7 +15,7 @@ public class StageGameManager : MonoBehaviour
 {
     public static StageGameManager instance;
 
-    BallInput input;
+    GameInput input;
     public GameState currentGameState { get; private set; }
     public GameState previousGameState;
     [Header("UI¿¬°á")]
@@ -28,8 +29,9 @@ public class StageGameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            input = new BallInput();
+            input = new GameInput();
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
@@ -45,27 +47,20 @@ public class StageGameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        input.UI.Enable();
+        input.Game.Enable();
+        input.Game.Pause.performed += PauseState;
     }
     private void OnDisable()
     {
-        input.UI.Disable();
+        input.Game.Disable();
+        input.Game.Pause.performed -=  PauseState;
     }
 
-    private void Update()
+    private void PauseState(InputAction.CallbackContext context)
     {
-        bool flowControl = PauseState();
-        if (!flowControl)
-        {
-            return;
-        }
+        if (currentGameState == GameState.GameClear) return;
 
-    }
-
-    private bool PauseState()
-    {
-        if (currentGameState == GameState.GameClear) return false;
-        if (input.UI.Pause.WasPerformedThisFrame())
+        if (input.Game.Pause.WasPerformedThisFrame())
         {
             if (currentGameState == GameState.Paused)
             {
@@ -76,15 +71,12 @@ public class StageGameManager : MonoBehaviour
                 previousGameState = currentGameState;
                 ChangeGameState(GameState.Paused);
             }
-
         }
-
-        return true;
     }
 
     public void ChangeGameState(GameState state)
     {
-        if (currentGameState == GameState.GameClear) return;
+        if (currentGameState == state) return;
 
         if (currentGameState == GameState.Paused && state == GameState.GameOver)
         {
@@ -101,25 +93,30 @@ public class StageGameManager : MonoBehaviour
             case GameState.None:
                 break;
             case GameState.Start:
+                Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 GameStartUI.SetActive(true);
                 Time.timeScale = 1f;
                 break;
             case GameState.Playing:
+                Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
                 Time.timeScale = 1f;
                 break;
             case GameState.Paused:
+                Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 GamePauseUI.SetActive(true);
                 Time.timeScale = 0.25f;
                 break;
             case GameState.GameOver:
+                Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 GameOverUI.SetActive(true);
                 Time.timeScale = 1;
                 break;
             case GameState.GameClear:
+                Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 GameClearUI.SetActive(true);
                 Time.timeScale = 1f;

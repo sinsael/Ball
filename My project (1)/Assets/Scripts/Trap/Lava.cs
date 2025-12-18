@@ -4,7 +4,7 @@ public class Lava : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.TryGetComponent<Ball>(out Ball ball);
+        collision.gameObject.TryGetComponent<BallMovement>(out BallMovement ball);
         {
             ball.Die();
         }

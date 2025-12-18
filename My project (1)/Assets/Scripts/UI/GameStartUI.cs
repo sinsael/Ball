@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class GameStartUI : MonoBehaviour
 {
-    BallInput input;
+    GameInput input;
 
     private void Awake()
     {
-        input = new BallInput();
+        input = new GameInput();
     }
 
     private void OnEnable()
     {
-        input.UI.Enable();
+        input.Game.Enable();
     }
 
     private void OnDisable()
     {
-        input.UI.Disable();
+        input.Game.Disable();
     }
     private void Update()
     {
-        if (input.UI.Pause.WasPressedThisFrame()) return;
+        if (input.Game.Pause.WasPressedThisFrame()) return;
 
-        if (input.UI.Anykey.WasPerformedThisFrame())
+        if (input.Game.Anykey.WasPerformedThisFrame())
             StageGameManager.instance.ChangeGameState(GameState.Playing);
     }
 }

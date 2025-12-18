@@ -3,29 +3,29 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour
 {
-    BallInput input;
+    GameInput input;
 
     private void Awake()
     {
-        input = new BallInput();
+        input = new GameInput();
     }
 
     private void OnEnable()
     {
-        input.UI.Enable();
+        input.Game.Enable();
     }
 
     private void OnDisable()
     {
-        input.UI.Disable();
+        input.Game.Disable();
     }
 
     void Update()
     {
         if (StageGameManager.instance.currentGameState == GameState.Paused) return;
-        if (input.UI.Pause.WasPressedThisFrame()) return;
+        if (input.Game.Pause.WasPressedThisFrame()) return;
 
-        if (input.UI.Anykey.WasPressedThisFrame())
+        if (input.Game.Anykey.WasPressedThisFrame())
             Restart();
 
     }

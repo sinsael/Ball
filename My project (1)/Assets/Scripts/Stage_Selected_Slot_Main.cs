@@ -14,21 +14,21 @@ public class Stage_Selected_Slot_Main : MonoBehaviour
 
     List<string> existingScenes = new List<string>(); // 빌드 설정에 있는 씬 이름 저장
 
-    BallInput input;
+    GameInput input;
 
     private void Awake()
     {
-        input = new BallInput();
+        input = new GameInput();
     }
 
     private void OnEnable()
     {
-        input.UI.Enable();
+        input.Game.Enable();
     }
 
     private void OnDisable()
     {
-        input.UI.Disable();
+        input.Game.Disable();
     }
 
     void Start()
@@ -40,7 +40,7 @@ public class Stage_Selected_Slot_Main : MonoBehaviour
 
     private void Update()
     {
-        if (input.UI.Pause.WasPressedThisFrame())
+        if (input.Game.Pause.WasPressedThisFrame())
         {
             Debug.Log("Exit Popup Open");
             exitPopup.gameObject.SetActive(true);

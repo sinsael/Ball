@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class CinemachineCameraController : MonoBehaviour
 {
-    BallInput input;
+    GameInput input;
 
     [Header("추적 대상")]
     [Tooltip("따라다닐 공(Player) 오브젝트를 여기에 넣으세요")]
@@ -29,7 +29,7 @@ public class CinemachineCameraController : MonoBehaviour
 
     private void Awake()
     {
-        input = new BallInput();
+        input = new GameInput();
     }
 
     private void OnEnable()
