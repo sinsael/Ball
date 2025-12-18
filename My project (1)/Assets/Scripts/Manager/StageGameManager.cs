@@ -18,18 +18,26 @@ public class StageGameManager : MonoBehaviour
     GameInput input;
     public GameState currentGameState { get; private set; }
     public GameState previousGameState;
+
     [Header("UI연결")]
+    [Tooltip("시작")]
     public GameObject GameStartUI = null;
+    [Tooltip("일시정지")]
     public GameObject GamePauseUI = null;
+    [Tooltip("게임오버")]
     public GameObject GameOverUI = null;
+    [Tooltip("게임클리어")]
     public GameObject GameClearUI = null;
 
     private void Awake()
     {
+        // 싱글톤
         if (instance == null)
         {
             instance = this;
+            // Input Class 생성
             input = new GameInput();
+            // 초기 커서 설정
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -42,7 +50,7 @@ public class StageGameManager : MonoBehaviour
     private void Start()
     {
         CloseAllUI();
-        ChangeGameState(GameState.Start);
+        ChangeGameState(GameState.Start); // 게임 시작 상태로 변경
     }
 
     private void OnEnable()
@@ -54,39 +62,44 @@ public class StageGameManager : MonoBehaviour
     {
         input.Game.Disable();
         input.Game.Pause.performed -=  PauseState;
+
+        input.Dispose();
     }
 
+    // 일시정지 상태 전환
     private void PauseState(InputAction.CallbackContext context)
     {
-        if (currentGameState == GameState.GameClear) return;
+        if (currentGameState == GameState.GameClear) return; // 게임 클리어 상태에서는 일시정지 불가
 
         if (input.Game.Pause.WasPerformedThisFrame())
         {
-            if (currentGameState == GameState.Paused)
+            if (currentGameState == GameState.Paused) // 일시정지 상태라면 이전 상태로 복귀
             {
-                ChangeGameState(previousGameState);
+                ChangeGameState(previousGameState); // 이전 상태로 복귀
             }
             else
             {
-                previousGameState = currentGameState;
-                ChangeGameState(GameState.Paused);
+                previousGameState = currentGameState; // 이전 상태 저장
+                ChangeGameState(GameState.Paused); // 일시정지 상태로 변경
             }
         }
     }
 
     public void ChangeGameState(GameState state)
     {
-        if (currentGameState == state) return;
+        if(currentGameState == GameState.GameClear) return; // 게임 클리어 상태에서는 상태 변경 불가
+        if (currentGameState == state) return; // 동일 상태라면 무시
 
         if (currentGameState == GameState.Paused && state == GameState.GameOver)
         {
+            // 일시정지 상태에서 게임오버로 전환 시 이전 상태를 게임오버로 설정
             previousGameState = GameState.GameOver;
-
             return;
         }
-        currentGameState = state;
 
-        CloseAllUI();
+        currentGameState = state; // 현재 상태 변경
+
+        CloseAllUI(); // 모든 UI 닫기
 
         switch (currentGameState)
         {

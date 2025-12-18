@@ -18,7 +18,6 @@ public class BallItemSystem : MonoBehaviour
 
     private void Awake()
     {
-        
         movement = GetComponent<BallMovement>();
     }
 

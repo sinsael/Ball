@@ -5,14 +5,14 @@ public class BallMovement : MonoBehaviour
 {
     [Header("컴포넌트")]
     Rigidbody rb;
-    InputHandler inputHandler;
+    [SerializeField ]InputHandler inputHandler;
 
     [Header("아이템")]
     [Tooltip("아이템 데이터 저장")]
     [SerializeField] ItemDataSO currentItemData;
     public bool isEffectActive = false;
     public bool stopItemRequest = false;
-    private Coroutine activeItemCoroutine;
+    Coroutine activeItemCoroutine;
 
     [Header("카메라")]
     [Tooltip("방향 참조용")]
@@ -36,10 +36,9 @@ public class BallMovement : MonoBehaviour
         StageGameManager.instance.currentGameState == GameState.Paused ||
         StageGameManager.instance.currentGameState == GameState.GameClear;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        inputHandler = GetComponent<InputHandler>();
 
         if (cameraContorller != null)
         {
@@ -60,7 +59,7 @@ public class BallMovement : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (cantMove) return;
 
@@ -70,7 +69,7 @@ public class BallMovement : MonoBehaviour
     }
 
     // 공 이동
-    private void movement(Vector3 moveinput)
+    void movement(Vector3 moveinput)
     {
 
         // 이동 방향 벡터 정규화
@@ -110,7 +109,7 @@ public class BallMovement : MonoBehaviour
         );
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag(GroundTag))
         {

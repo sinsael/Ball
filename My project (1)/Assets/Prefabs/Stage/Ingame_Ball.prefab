@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3958529942408545123, guid: 38022536b3cf1e54cac2ed0fad2a9199, type: 3}
       propertyPath: m_Name
-      value: Ball Variant
+      value: Ingame_Ball
       objectReference: {fileID: 0}
     - target: {fileID: 3958529942408545123, guid: 38022536b3cf1e54cac2ed0fad2a9199, type: 3}
       propertyPath: m_TagString
@@ -74,9 +74,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3958529942408545123, guid: 38022536b3cf1e54cac2ed0fad2a9199, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4650412009470686799}
-    - targetCorrespondingSourceObject: {fileID: 3958529942408545123, guid: 38022536b3cf1e54cac2ed0fad2a9199, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2168076790616556883}
   m_SourcePrefab: {fileID: 100100000, guid: 38022536b3cf1e54cac2ed0fad2a9199, type: 3}
 --- !u!1 &1127808356845745672 stripped
 GameObject:
@@ -95,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf91801810d21842a59f63987d0bf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
+  inputHandler: {fileID: 11400000, guid: f7ebaea93d8105f42b7960a768422d5f, type: 2}
   currentItemData: {fileID: 0}
   isEffectActive: 0
   stopItemRequest: 0
@@ -120,7 +118,7 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Height: 1
   m_Radius: 0.5
@@ -129,15 +127,3 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2168076790616556883
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127808356845745672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c75caa6edfeee04f87ef1c9ae5907ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputHandler

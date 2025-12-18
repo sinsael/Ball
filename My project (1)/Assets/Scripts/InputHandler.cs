@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System;
 
-public class InputHandler : MonoBehaviour
+[CreateAssetMenu(fileName = "InputHandler", menuName = "Input/InputHandler")]
+public class InputHandler : ScriptableObject
 {
     GameInput input;
 
@@ -13,15 +15,11 @@ public class InputHandler : MonoBehaviour
     public event Action OnUseItemEvent;
     public event Action OnUseItemCancledEvent;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        input = new GameInput();
-    }
-
     private void OnEnable()
     {
-        input.Enable();
+        if (!Application.isPlaying) return;
+
+        input = new GameInput();
 
         // 움직임
         input.Ball.Move.performed += ctx => MoveDirection = ctx.ReadValue<Vector3>();
@@ -30,10 +28,23 @@ public class InputHandler : MonoBehaviour
         // 아이템 사용
         input.Ball.UseItem.performed += ctx => OnUseItemEvent?.Invoke();
         input.Ball.UseItem.canceled += ctx => OnUseItemCancledEvent?.Invoke();
+
+        // 카메라 이동
+        input.Camera.Look.performed += ctx => MouseDelta = ctx.ReadValue<Vector2>();
+        input.Camera.Look.canceled += ctx => MouseDelta = Vector2.zero;
+
+        input.Ball.Enable();
+        input.Camera.Enable();
     }
 
     private void OnDisable()
     {
-        input.Disable();
+        if (input != null)
+        {
+            input.Ball.Disable();
+            input.Game.Disable();
+            input.Dispose(); // 메모리 해제
+            input = null;
+        }
     }
 }
