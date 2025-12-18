@@ -7,7 +7,6 @@ public class BallItemSystem : MonoBehaviour
     [SerializeField] BallMovement movement;
     [SerializeField] CinemachineCameraController cameraController;
     [SerializeField] GameObject crosshairUI;
-    InputHandler inputHandler;
 
     [Header("아이템 상태")]
     [SerializeField] ItemDataSO currentItemData;

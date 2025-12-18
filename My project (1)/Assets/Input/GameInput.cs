@@ -113,8 +113,19 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
+                    ""name"": """",
+                    ""id"": ""819279c9-48d9-4f98-a628-8bc72be02b5c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""3D Vector"",
-                    ""id"": ""a5788dbf-ffb3-49b3-8d44-75da1784edaa"",
+                    ""id"": ""4c445f2e-2350-4592-ba5c-2e54cab42eb9"",
                     ""path"": ""3DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -125,7 +136,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""76d31918-4e18-42a6-868d-0f04dbb5f438"",
+                    ""id"": ""8617da2d-4fba-4aec-86f0-0ed7498435a1"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -136,7 +147,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""ca45266b-55f0-4c5d-9f23-0f50d94e86cd"",
+                    ""id"": ""ba4ed9f6-e744-4d29-b93d-05c5be23366a"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -147,7 +158,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""forward"",
-                    ""id"": ""a8155612-f21a-4fbb-8208-f21dc3903a81"",
+                    ""id"": ""33ca1305-4fc6-40c0-993a-55e9be2963a6"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -158,7 +169,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""backward"",
-                    ""id"": ""1412ca6a-6cc8-4c0e-bab3-0efb6ebae12d"",
+                    ""id"": ""cf9ef806-360a-4f34-8668-bb15720be7f5"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -166,17 +177,6 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""819279c9-48d9-4f98-a628-8bc72be02b5c"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },

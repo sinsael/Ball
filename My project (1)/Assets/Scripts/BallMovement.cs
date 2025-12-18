@@ -1,11 +1,12 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BallMovement : MonoBehaviour
 {
     [Header("컴포넌트")]
     Rigidbody rb;
-    [SerializeField ]InputHandler inputHandler;
+    GameInput input;
 
     [Header("아이템")]
     [Tooltip("아이템 데이터 저장")]
@@ -26,6 +27,7 @@ public class BallMovement : MonoBehaviour
     [Tooltip("움직임")]
     public float bounceForce = 5f; // 공 튕기는 힘
     public float moveSpeed = 5f; // 공 이동 속도
+    Vector3 MoveDirection;
 
     [Tooltip("관성")]
     [SerializeField] float inertia = 0.1f; // 관성 감속
@@ -39,11 +41,24 @@ public class BallMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
+        input = new GameInput();
         if (cameraContorller != null)
         {
             cameraContorller = cameraTransform.GetComponent<CinemachineCameraController>();
         }
+    }
+
+    private void OnEnable()
+    {
+        input.Ball.Enable();
+        input.Ball.Move.performed += ctx => MoveDirection = ctx.ReadValue<Vector3>();
+        input.Ball.Move.canceled += ctx => MoveDirection = Vector3.zero;
+    }
+
+    private void OnDisable()
+    {
+        input.Ball.Disable();
+        input.Dispose();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -63,7 +78,7 @@ public class BallMovement : MonoBehaviour
     {
         if (cantMove) return;
 
-        Vector3 dir = inputHandler.MoveDirection;
+        Vector3 dir = MoveDirection;
 
         movement(dir);
     }
@@ -71,6 +86,7 @@ public class BallMovement : MonoBehaviour
     // 공 이동
     void movement(Vector3 moveinput)
     {
+        Debug.Log(moveinput);
 
         // 이동 방향 벡터 정규화
         Vector3 clampedMoveDir = Vector3.ClampMagnitude(moveinput, 1f);
