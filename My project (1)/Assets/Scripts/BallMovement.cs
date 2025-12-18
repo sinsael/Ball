@@ -8,13 +8,6 @@ public class BallMovement : MonoBehaviour
     Rigidbody rb;
     GameInput input;
 
-    [Header("아이템")]
-    [Tooltip("아이템 데이터 저장")]
-    [SerializeField] ItemDataSO currentItemData;
-    public bool isEffectActive = false;
-    public bool stopItemRequest = false;
-    Coroutine activeItemCoroutine;
-
     [Header("카메라")]
     [Tooltip("방향 참조용")]
     public Transform cameraTransform;
@@ -140,6 +133,14 @@ public class BallMovement : MonoBehaviour
         }
     }
 
+    // 다른 방식의 속도 추가
+    public void ApllyExternalForce(Vector3 direction, float force)
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(direction * force, ForceMode.Impulse);
+    }
+
+    // 죽음
     public void Die()
     {
         this.gameObject.SetActive(false);

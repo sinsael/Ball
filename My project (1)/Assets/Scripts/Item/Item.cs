@@ -13,7 +13,7 @@ public class Item : MonoBehaviour
 
         if(ballSystem != null)
         {
-           ballSystem.SetItem(itemData);
+           ballSystem.PickUpItem(itemData);
 
             Destroy(this.gameObject);
         }
