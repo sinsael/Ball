@@ -20,6 +20,11 @@ public class BallItemSystem : MonoBehaviour
     {
         movement = GetComponent<BallMovement>();
         input = new GameInput();
+
+        if(crosshairUI == null )
+        {
+            return;
+        }
     }
 
     private void OnEnable()

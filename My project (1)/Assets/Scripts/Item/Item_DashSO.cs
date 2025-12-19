@@ -1,21 +1,28 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Object Asset/Item")]
+[CreateAssetMenu(fileName = "Dash", menuName = "Item/Dash")]
 public class Item_DashSO : ItemDataSO
 {
     [Header("대쉬 파워")]
     public float dashForce = 10f;
 
     [Header("줌 연출 설정")]
-    public float zoomAmount = 3f;
-    public float zoomInTime = 0.1f;
-    public float zoomOutTime = 0.5f;
+    public float zoomAmount = 3f; // 줌인 기능
+    public float zoomInTime = 0.1f; // 줌 인까지 얼마나 걸리는지
+    public float zoomOutTime = 0.5f; // 줌 아웃까지 얼마나 걸리는지
+    [Tooltip("슬로우 모션")]
+    public float slowMotion = 0.5f;
 
     public override void OnUseDown(BallItemSystem user)
     {
         user.cameraController.SetZoom(zoomAmount, zoomInTime);
 
-        user.crosshairUI.SetActive(true);
+        Time.timeScale = slowMotion;
+
+        if (user.crosshairUI != null)
+        {
+            user.crosshairUI.SetActive(true);
+        }
     }
 
     public override void OnUseUp(BallItemSystem user)
@@ -27,6 +34,12 @@ public class Item_DashSO : ItemDataSO
         }
 
         user.cameraController.ResetZoom(zoomOutTime);
-        user.crosshairUI.SetActive(false);
+
+        Time.timeScale = 1f;
+
+        if (user.crosshairUI != null)
+        {
+            user.crosshairUI.SetActive(false);
+        }
     }
 }
