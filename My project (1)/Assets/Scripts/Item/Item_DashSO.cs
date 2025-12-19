@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Object Asset/Item")]
 public class Item_DashSO : ItemDataSO
 {
     [Header("대쉬 파워")]
