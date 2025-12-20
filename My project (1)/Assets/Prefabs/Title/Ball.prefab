@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7585469846719138893
+--- !u!1 &3958529942408545123
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7160936795303299988}
-  - component: {fileID: 8508036114123666607}
-  - component: {fileID: 5412213186851645099}
-  - component: {fileID: 64312144089258866}
-  - component: {fileID: 5530966883429075294}
-  - component: {fileID: 6640114718152137050}
-  - component: {fileID: 20021321125986214}
-  - component: {fileID: 1979043186173162173}
+  - component: {fileID: 3525530261318231914}
+  - component: {fileID: 4347715433331647892}
+  - component: {fileID: 2097414699259682672}
+  - component: {fileID: 9067019658069039036}
+  - component: {fileID: 1746922830747138051}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Player
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7160936795303299988
+--- !u!4 &3525530261318231914
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
+  m_GameObject: {fileID: 3958529942408545123}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 3.6, z: -1.5}
+  m_LocalPosition: {x: 3.49, y: 7.6, z: -6.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8508036114123666607
+--- !u!33 &4347715433331647892
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
+  m_GameObject: {fileID: 3958529942408545123}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5412213186851645099
+--- !u!23 &2097414699259682672
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
+  m_GameObject: {fileID: 3958529942408545123}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -95,14 +92,14 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &64312144089258866
+--- !u!135 &9067019658069039036
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
-  m_Material: {fileID: 13400000, guid: 7fe21801446701d4a8a9d95386224ede, type: 2}
+  m_GameObject: {fileID: 3958529942408545123}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -116,13 +113,13 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5530966883429075294
+--- !u!54 &1746922830747138051
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
+  m_GameObject: {fileID: 3958529942408545123}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -140,65 +137,6 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 112
+  m_Interpolate: 0
+  m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &6640114718152137050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf91801810d21842a59f63987d0bf33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ball
-  cameraTransform: {fileID: 0}
-  cameraContorller: {fileID: 0}
-  GroundTag: Ground
-  bounceForce: 5
-  moveSpeed: 5
-  inertia: 0.4
---- !u!143 &20021321125986214
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1979043186173162173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7585469846719138893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5889beeb9fff39242bd1eef4eb169af9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BallItemSystem
-  movement: {fileID: 0}
-  cameraController: {fileID: 0}
-  crosshairUI: {fileID: 0}
-  currentItemData: {fileID: 0}

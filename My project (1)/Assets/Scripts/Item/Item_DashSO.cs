@@ -10,7 +10,7 @@ public class Item_DashSO : ItemDataSO
     [Tooltip("줌 인")]
     public float zoomAmount = 3f; // 줌인 기능
     [Tooltip("오프셋")]
-    public float sideOffset = 1.0f;
+    public Vector3 sideOffset;
     [Tooltip("오프셋 바뀌는 시간")]
     public float offSetTime = 1.0f;
     [Tooltip("줌 인까지 걸리는 시간")]

@@ -27,8 +27,8 @@ public class CinemachineCameraController : MonoBehaviour
     private float _zoomLerpSpeed;
 
     [Header("오프셋 설정")]
-    public float defaultOffsetX = 0f;
-    public float _targetOffsetX = 0f;
+    public Vector3 defaultOffset;
+    private Vector3 _targetOffset;
     private float _offsetLerpSpeed;
 
     private float _targetYaw;
@@ -44,8 +44,8 @@ public class CinemachineCameraController : MonoBehaviour
             _targetFOV = defaultFOV;
 
             _thirdPersonFollow = CineCamera.GetComponent<CinemachineThirdPersonFollow>();
-            defaultOffsetX = _thirdPersonFollow.ShoulderOffset.x;
-            _targetOffsetX = defaultOffsetX;
+            defaultOffset = _thirdPersonFollow.ShoulderOffset;
+            _targetOffset = defaultOffset;
         }
     }
 
@@ -99,23 +99,25 @@ public class CinemachineCameraController : MonoBehaviour
             );
             CineCamera.Lens = lens;
 
-            Vector3 offset = _thirdPersonFollow.ShoulderOffset;
-            offset.x = Mathf.Lerp(offset.x, _targetOffsetX, Time.unscaledDeltaTime * _offsetLerpSpeed);
-            _thirdPersonFollow.ShoulderOffset = offset;
+            _thirdPersonFollow.ShoulderOffset = Vector3.Lerp(
+                 _thirdPersonFollow.ShoulderOffset,
+                 _targetOffset,
+                 Time.unscaledDeltaTime * _offsetLerpSpeed
+             );
         }
     }
 
     /// <summary>
     /// 줌인 기능 및, 오프셋변경
     /// </summary>
-    /// <param name="fovAmount"> 줌인 크기</param>
+    /// <param name="fovAmount"> 줌 크기</param>
     /// <param name="zoomtime"> 줌까지 걸리는 시간</param>
     /// <param name="offsetX"> 오프셋 X 거리</param>
     /// <param name="offsettime"> 오프셋 바뀌는 시간</param>
-    public void SetZoom(float fovAmount, float zoomtime, float offsetX, float offsettime)
+    public void SetZoom(float fovAmount, float zoomtime, Vector3 offset, float offsettime)
     {
         _targetFOV = fovAmount;
-        _targetOffsetX = offsetX;
+        _targetOffset = offset;
         _zoomLerpSpeed = 1f / Mathf.Max(zoomtime, 0.01f);
         _offsetLerpSpeed = 1f / Mathf.Max(offsettime, 0.01f);
     }
@@ -123,7 +125,7 @@ public class CinemachineCameraController : MonoBehaviour
     public void ResetZoom(float zoomtime, float offsettime)
     {
         _targetFOV = defaultFOV;
-        _targetOffsetX = defaultOffsetX;
+        _targetOffset = defaultOffset;
         _zoomLerpSpeed = 1f / Mathf.Max(zoomtime, 0.01f);
         _offsetLerpSpeed = 1f / Mathf.Max(offsettime);
     }

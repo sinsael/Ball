@@ -17,10 +17,10 @@ MonoBehaviour:
   maxHoldTime: 2
   useType: 1
   isEquippable: 1
-  dashForce: 50
+  dashForce: 10
   zoomAmount: 30
-  sideOffset: 1
+  sideOffset: {x: 0.8, y: 0.2, z: 0}
   offSetTime: 0.25
-  zoomInTime: 0.5
+  zoomInTime: 0.3
   zoomOutTime: 0.1
   slowMotion: 0.5
