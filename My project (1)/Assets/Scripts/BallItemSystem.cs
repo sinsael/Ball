@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,12 +8,14 @@ public class BallItemSystem : MonoBehaviour
     [Header("연결 필요")]
     public BallMovement movement;
     public CinemachineCameraController cameraController;
+    [Header("조준점")]
     public GameObject crosshairUI;
 
     GameInput input;
 
     [Header("아이템 상태")]
     [SerializeField] ItemDataSO currentItemData;
+    float currentHoldTimer = 0f;
 
     bool isHolding = false;
 
@@ -39,6 +42,19 @@ public class BallItemSystem : MonoBehaviour
         input.Ball.Disable();
         input.Ball.UseItem.started -= OnUseItemStarted;
         input.Ball.UseItem.canceled -= OnUseItemCanceled;
+    }
+
+    private void Update()
+    {
+        if(isHolding && currentItemData != null)
+        {
+            currentHoldTimer += Time.unscaledDeltaTime;
+
+            if(currentHoldTimer >= currentItemData.maxHoldTime)
+            {
+                ExecuteItemUp();
+            }
+        }
     }
 
     public void PickUpItem(ItemDataSO newItem)
@@ -95,5 +111,15 @@ public class BallItemSystem : MonoBehaviour
             isHolding = false;      // 사용 종료
             currentItemData = null; // 아이템 소모
         }
+    }
+
+    void ExecuteItemUp()
+    {
+        if ((currentItemData == null || !isHolding)) return;
+
+        currentItemData.OnUseUp(this);
+        isHolding = false;
+        currentItemData=null;
+        currentHoldTimer = 0f;
     }
 }

@@ -1,51 +1,62 @@
 using Unity.Cinemachine;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
-#endif
 
 public class CinemachineCameraController : MonoBehaviour
 {
     GameInput input;
 
     [Header("추적 대상")]
-    [Tooltip("따라다닐 공(Player) 오브젝트를 여기에 넣으세요")]
-    public Transform playerBall; // ★ 수정됨: 추적할 공
+    public Transform playerBall;
 
     [Header("카메라 연결")]
     public CinemachineCamera CineCamera;
+    private CinemachineThirdPersonFollow _thirdPersonFollow;
 
-    [Header("설정")]
-    [Range(0, 2)]
-    [Tooltip("마우스 감도")]
-    public float mouseSensitivity = 1.0f;
-
-    [Tooltip("상단 회전 제한")]
+    [Header("감도 설정")]
+    [Range(0, 5)]
+    public float mouseSensitivity = 1.5f;
+    [Tooltip("상단 회전 최대")]
     public float topClamp = 70.0f;
+    [Tooltip("하단 회전 최대")]
+    public float bottomClamp = -10.0f;
 
-    [Tooltip("하단 회전 제한")]
-    public float bottomClamp = -10.0f; // ★ 수정됨: 바닥 뚫림 방지 위해 -30 -> -10 추천
-
-    [Header("줌 설정 (FOV 방식 추천)")]
+    [Header("줌 설정")]
     public float defaultFOV = 60f;
     private float _targetFOV;
-    private float _zoomSpeed;
+    private float _zoomLerpSpeed;
 
-    // 내부 변수
+    [Header("오프셋 설정")]
+    public float defaultOffsetX = 0f;
+    public float _targetOffsetX = 0f;
+    private float _offsetLerpSpeed;
+
     private float _targetYaw;
     private float _targetPitch;
+
 
     private void Awake()
     {
         input = new GameInput();
-    }
+        if (CineCamera != null)
+        {
+            defaultFOV = CineCamera.Lens.FieldOfView;
+            _targetFOV = defaultFOV;
 
+            _thirdPersonFollow = CineCamera.GetComponent<CinemachineThirdPersonFollow>();
+            defaultOffsetX = _thirdPersonFollow.ShoulderOffset.x;
+            _targetOffsetX = defaultOffsetX;
+        }
+    }
 
     private void OnEnable() => input.Camera.Enable();
     private void OnDisable() => input.Camera.Disable();
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
@@ -53,46 +64,68 @@ public class CinemachineCameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (StageGameManager.instance.currentGameState == GameState.Paused ||
-             StageGameManager.instance.currentGameState == GameState.GameClear) return;
+        if (StageGameManager.instance != null)
+        {
+            if (StageGameManager.instance.currentGameState == GameState.Paused ||
+                StageGameManager.instance.currentGameState == GameState.GameClear)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                return;
+            }
+        }
 
         if (playerBall == null) return;
 
-        // 1. 위치 따라가기 (피벗 이동)
+        // 피벗 이동
         transform.position = playerBall.position;
-
-        // 2. 마우스 회전 (이 부분이 있어야 마우스를 따라갑니다)
+         
+        // 마우스 회전
         Vector2 mouseDelta = input.Camera.Look.ReadValue<Vector2>();
         _targetYaw += mouseDelta.x * mouseSensitivity;
         _targetPitch -= mouseDelta.y * mouseSensitivity;
         _targetPitch = ClampAngle(_targetPitch, bottomClamp, topClamp);
 
-        // 피벗 오브젝트를 회전시킴
         transform.rotation = Quaternion.Euler(_targetPitch, _targetYaw, 0.0f);
 
-        // 3. 줌 로직 (슬로우 모션 영향을 받지 않도록 unscaledDeltaTime 사용)
+        // 3. 시네머신 줌
         if (CineCamera != null)
         {
-            CineCamera.Lens.FieldOfView = Mathf.Lerp(
-                CineCamera.Lens.FieldOfView,
+            LensSettings lens = CineCamera.Lens;
+            lens.FieldOfView = Mathf.Lerp(
+                lens.FieldOfView,
                 _targetFOV,
-                Time.unscaledDeltaTime * _zoomSpeed
+                Time.unscaledDeltaTime * _zoomLerpSpeed
             );
+            CineCamera.Lens = lens;
+
+            Vector3 offset = _thirdPersonFollow.ShoulderOffset;
+            offset.x = Mathf.Lerp(offset.x, _targetOffsetX, Time.unscaledDeltaTime * _offsetLerpSpeed);
+            _thirdPersonFollow.ShoulderOffset = offset;
         }
     }
 
-    // 줌 인/아웃
-    public void SetZoom(float distance, float time)
+    /// <summary>
+    /// 줌인 기능 및, 오프셋변경
+    /// </summary>
+    /// <param name="fovAmount"> 줌인 크기</param>
+    /// <param name="zoomtime"> 줌까지 걸리는 시간</param>
+    /// <param name="offsetX"> 오프셋 X 거리</param>
+    /// <param name="offsettime"> 오프셋 바뀌는 시간</param>
+    public void SetZoom(float fovAmount, float zoomtime, float offsetX, float offsettime)
     {
-        _targetFOV = distance;
-        _zoomSpeed = 1f / Mathf.Max(time, 0.01f); // 아이템이 정한 속도로 변경
+        _targetFOV = fovAmount;
+        _targetOffsetX = offsetX;
+        _zoomLerpSpeed = 1f / Mathf.Max(zoomtime, 0.01f);
+        _offsetLerpSpeed = 1f / Mathf.Max(offsettime, 0.01f);
     }
 
-    // 원상복구 명령 (시간)
-    public void ResetZoom(float time)
+    public void ResetZoom(float zoomtime, float offsettime)
     {
         _targetFOV = defaultFOV;
-        _zoomSpeed = 1f / Mathf.Max(time, 0.01f);
+        _targetOffsetX = defaultOffsetX;
+        _zoomLerpSpeed = 1f / Mathf.Max(zoomtime, 0.01f);
+        _offsetLerpSpeed = 1f / Mathf.Max(offsettime);
     }
 
     static float ClampAngle(float lfAngle, float lfMin, float lfMax)
