@@ -13,7 +13,7 @@ public class CinemachineCameraController : MonoBehaviour
     public Transform playerBall; // ★ 수정됨: 추적할 공
 
     [Header("카메라 연결")]
-    public Transform realCamera;
+    public CinemachineCamera CineCamera;
 
     [Header("설정")]
     [Range(0, 2)]
@@ -26,12 +26,10 @@ public class CinemachineCameraController : MonoBehaviour
     [Tooltip("하단 회전 제한")]
     public float bottomClamp = -10.0f; // ★ 수정됨: 바닥 뚫림 방지 위해 -30 -> -10 추천
 
-    [Header("줌 설정")]
-    public float defaultDistance = 10.0f;
-
-    private float currentSmoothTime;
-    private float targetDistance;
-    private Vector3 _currentZoomVelocity;
+    [Header("줌 설정 (FOV 방식 추천)")]
+    public float defaultFOV = 60f;
+    private float _targetFOV;
+    private float _zoomSpeed;
 
     // 내부 변수
     private float _targetYaw;
@@ -42,34 +40,15 @@ public class CinemachineCameraController : MonoBehaviour
         input = new GameInput();
     }
 
-    private void OnEnable()
-    {
-        input.Camera.Enable();
-    }
-    private void OnDisable()
-    {
-        input.Camera.Disable();
-    }
+
+    private void OnEnable() => input.Camera.Enable();
+    private void OnDisable() => input.Camera.Disable();
 
     void Start()
     {
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
-
-        targetDistance = defaultDistance;
-        currentSmoothTime = 0.5f; // 초기값
-
-        if (realCamera != null)
-        {
-            // 시작 시 현재 거리를 기본값으로
-            float currentDist = Mathf.Abs(realCamera.localPosition.z);
-            if (currentDist > 0.1f)
-            {
-                defaultDistance = currentDist;
-                targetDistance = defaultDistance;
-            }
-        }
     }
 
     void LateUpdate()
@@ -79,36 +58,25 @@ public class CinemachineCameraController : MonoBehaviour
 
         if (playerBall == null) return;
 
-        // 1. 위치 따라가기
+        // 1. 위치 따라가기 (피벗 이동)
         transform.position = playerBall.position;
 
-        // 2. 마우스 회전
-        if (input != null && Mouse.current != null)
-        {
-            Vector2 mouseDelta = input.Camera.Look.ReadValue<Vector2>();
-            float mouseX = mouseDelta.x * mouseSensitivity;
-            float mouseY = mouseDelta.y * mouseSensitivity;
-
-            if (Mathf.Abs(mouseX) > 0.01f || Mathf.Abs(mouseY) > 0.01f)
-            {
-                _targetYaw += mouseX;
-                _targetPitch -= mouseY;
-            }
-        }
-
+        // 2. 마우스 회전 (이 부분이 있어야 마우스를 따라갑니다)
+        Vector2 mouseDelta = input.Camera.Look.ReadValue<Vector2>();
+        _targetYaw += mouseDelta.x * mouseSensitivity;
+        _targetPitch -= mouseDelta.y * mouseSensitivity;
         _targetPitch = ClampAngle(_targetPitch, bottomClamp, topClamp);
+
+        // 피벗 오브젝트를 회전시킴
         transform.rotation = Quaternion.Euler(_targetPitch, _targetYaw, 0.0f);
 
-        // 3. 줌 로직 (설정된 currentSmoothTime 사용)
-        if (realCamera != null)
+        // 3. 줌 로직 (슬로우 모션 영향을 받지 않도록 unscaledDeltaTime 사용)
+        if (CineCamera != null)
         {
-            Vector3 targetLocalPos = new Vector3(0, 0, -targetDistance);
-
-            realCamera.localPosition = Vector3.SmoothDamp(
-                realCamera.localPosition,
-                targetLocalPos,
-                ref _currentZoomVelocity,
-                currentSmoothTime // 상황에 따라 바뀐 시간 적용
+            CineCamera.Lens.FieldOfView = Mathf.Lerp(
+                CineCamera.Lens.FieldOfView,
+                _targetFOV,
+                Time.unscaledDeltaTime * _zoomSpeed
             );
         }
     }
@@ -116,15 +84,15 @@ public class CinemachineCameraController : MonoBehaviour
     // 줌 인/아웃
     public void SetZoom(float distance, float time)
     {
-        targetDistance = distance;
-        currentSmoothTime = time; // 아이템이 정한 속도로 변경
+        _targetFOV = distance;
+        _zoomSpeed = 1f / Mathf.Max(time, 0.01f); // 아이템이 정한 속도로 변경
     }
 
     // 원상복구 명령 (시간)
     public void ResetZoom(float time)
     {
-        targetDistance = defaultDistance;
-        currentSmoothTime = time; // 아이템이 정한 속도로 복구
+        _targetFOV = defaultFOV;
+        _zoomSpeed = 1f / Mathf.Max(time, 0.01f);
     }
 
     static float ClampAngle(float lfAngle, float lfMin, float lfMax)
