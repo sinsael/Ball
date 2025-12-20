@@ -7,7 +7,7 @@ public enum ItemUseType
 }
 
 
-public abstract class ItemDataSO : ScriptableObject
+public class ItemDataSO : ScriptableObject
 {
     public string itemName;
     public int point;
