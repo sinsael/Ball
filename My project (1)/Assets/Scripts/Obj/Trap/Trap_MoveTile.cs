@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 
-public class MoveTile : MonoBehaviour
+public class Trap_MoveTile : MonoBehaviour
 {
     Rigidbody rb;
     public Vector3 Move;
