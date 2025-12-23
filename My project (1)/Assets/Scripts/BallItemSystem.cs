@@ -24,6 +24,8 @@ public class BallItemSystem : MonoBehaviour
         movement = GetComponent<BallMovement>();
         input = new GameInput();
 
+        cameraController = FindFirstObjectByType<CinemachineCameraController>();
+
         if(crosshairUI == null )
         {
             return;

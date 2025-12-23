@@ -7,6 +7,8 @@ public class BallMovement : MonoBehaviour
     [Header("컴포넌트")]
     Rigidbody rb;
     GameInput input;
+    MeshRenderer meshRenderer;
+    Collider col;
 
     [Header("카메라")]
     [Tooltip("방향 참조용")]
@@ -34,10 +36,12 @@ public class BallMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
         input = new GameInput();
-        if (cameraContorller != null)
+        col = GetComponent<Collider>();
+        if (cameraContorller == null)
         {
-            cameraContorller = cameraTransform.GetComponent<CinemachineCameraController>();
+            cameraContorller = FindFirstObjectByType<CinemachineCameraController>();
         }
     }
 
@@ -140,10 +144,36 @@ public class BallMovement : MonoBehaviour
         rb.AddForce(direction * force, ForceMode.Impulse);
     }
 
+    // 리스폰
+    public void Respawn(Vector3 targetPos)
+    {
+        // 움직임 초기화
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        currentVelocityRef = Vector3.zero;
+
+        // 리스폰 구간
+        rb.position = targetPos;
+        transform.position = targetPos;
+
+        // 컴포넌트 활성화
+        meshRenderer.enabled = true;
+        col.enabled = true;
+    }
+
     // 죽음
     public void Die()
     {
-        this.gameObject.SetActive(false);
+        // 움직임 초기화
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        currentVelocityRef = Vector3.zero;
+
+        // 게임 상태 변화
         StageGameManager.instance.ChangeGameState(GameState.GameOver);
+
+        // 컴포넌트 비활성화
+        meshRenderer.enabled = false;
+        col.enabled = false;
     }
 }

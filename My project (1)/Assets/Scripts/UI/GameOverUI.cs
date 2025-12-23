@@ -3,16 +3,22 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour
 {
+    BallMovement respawn;
     GameInput input;
 
     private void Awake()
     {
         input = new GameInput();
+        if(respawn == null)
+        {
+            respawn = FindAnyObjectByType<BallMovement>();
+        }
     }
 
     private void OnEnable()
     {
         input.Game.Enable();
+        respawn = FindAnyObjectByType<BallMovement>();
     }
 
     private void OnDisable()
@@ -26,13 +32,8 @@ public class GameOverUI : MonoBehaviour
         if (input.Game.Pause.WasPressedThisFrame()) return;
 
         if (input.Game.Anykey.WasPressedThisFrame())
-            Restart();
-
+            StageGameManager.instance.RequestRespawn();
     }
 
-    void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        StageGameManager.instance.ChangeGameState(GameState.Start);
-    }
+
 }

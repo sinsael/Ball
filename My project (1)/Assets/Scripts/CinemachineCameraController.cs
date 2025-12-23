@@ -75,7 +75,7 @@ public class CinemachineCameraController : MonoBehaviour
             }
         }
 
-        if (playerBall == null) return;
+        if (playerBall == null || StageGameManager.instance.currentGameState == GameState.GameOver) return;
 
         // ÇÇ¹þ ÀÌµ¿
         transform.position = playerBall.position;

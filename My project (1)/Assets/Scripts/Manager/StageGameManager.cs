@@ -16,8 +16,11 @@ public class StageGameManager : MonoBehaviour
     public static StageGameManager instance;
 
     GameInput input;
+    BallMovement respawn;
     public GameState currentGameState { get; private set; }
     public GameState previousGameState;
+
+    public Vector3 lastCheckPointPos;
 
     [Header("UI연결")]
     [Tooltip("시작")]
@@ -45,12 +48,17 @@ public class StageGameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        respawn = FindFirstObjectByType<BallMovement>();
     }
 
     private void Start()
     {
         CloseAllUI();
         ChangeGameState(GameState.Start); // 게임 시작 상태로 변경
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null) lastCheckPointPos = player.transform.position;
     }
 
     private void OnEnable()
@@ -61,7 +69,7 @@ public class StageGameManager : MonoBehaviour
     private void OnDisable()
     {
         input.Game.Disable();
-        input.Game.Pause.performed -=  PauseState;
+        input.Game.Pause.performed -= PauseState;
 
         input.Dispose();
     }
@@ -87,7 +95,7 @@ public class StageGameManager : MonoBehaviour
 
     public void ChangeGameState(GameState state)
     {
-        if(currentGameState == GameState.GameClear) return; // 게임 클리어 상태에서는 상태 변경 불가
+        if (currentGameState == GameState.GameClear) return; // 게임 클리어 상태에서는 상태 변경 불가
         if (currentGameState == state) return; // 동일 상태라면 무시
 
         if (currentGameState == GameState.Paused && state == GameState.GameOver)
@@ -147,5 +155,11 @@ public class StageGameManager : MonoBehaviour
         GamePauseUI?.SetActive(false);
         GameOverUI?.SetActive(false);
         GameClearUI?.SetActive(false);
+    }
+
+    public void RequestRespawn()
+    {
+        respawn.Respawn(lastCheckPointPos);
+        ChangeGameState(GameState.Playing);
     }
 }
