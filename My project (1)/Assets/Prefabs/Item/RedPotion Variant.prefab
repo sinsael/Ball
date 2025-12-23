@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedPotion Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7215856734752065869, guid: 1242a88922ac6d34da67517f4c97626b, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     - target: {fileID: 8027683741339063287, guid: 1242a88922ac6d34da67517f4c97626b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.3636

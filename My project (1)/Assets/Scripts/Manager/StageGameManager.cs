@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public enum GameState
 {
@@ -32,6 +33,8 @@ public class StageGameManager : MonoBehaviour
     [Tooltip("게임클리어")]
     public GameObject GameClearUI = null;
 
+    private List<GameObject> stageItems =  new List<GameObject>();
+
     private void Awake()
     {
         // 싱글톤
@@ -54,6 +57,9 @@ public class StageGameManager : MonoBehaviour
 
     private void Start()
     {
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        stageItems.AddRange(items);
+
         CloseAllUI();
         ChangeGameState(GameState.Start); // 게임 시작 상태로 변경
 
@@ -149,6 +155,16 @@ public class StageGameManager : MonoBehaviour
 
     }
 
+    // 리스폰 시 호출할 함수
+    public void ResetStageElements()
+    {
+        // 1. 비활성화된 모든 아이템을 다시 활성화
+        foreach (GameObject item in stageItems)
+        {
+            if (item != null) item.SetActive(true);
+        }
+    }
+
     void CloseAllUI()
     {
         GameStartUI?.SetActive(false);
@@ -159,6 +175,8 @@ public class StageGameManager : MonoBehaviour
 
     public void RequestRespawn()
     {
+        ResetStageElements();
+
         respawn.Respawn(lastCheckPointPos);
         ChangeGameState(GameState.Playing);
     }

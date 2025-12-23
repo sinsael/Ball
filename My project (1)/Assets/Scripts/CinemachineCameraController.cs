@@ -14,7 +14,7 @@ public class CinemachineCameraController : MonoBehaviour
     private CinemachineThirdPersonFollow _thirdPersonFollow;
 
     [Header("감도 설정")]
-    [Range(0, 5)]
+    [Range(0, 1)]
     public float mouseSensitivity = 1.5f;
     [Tooltip("상단 회전 최대")]
     public float topClamp = 70.0f;

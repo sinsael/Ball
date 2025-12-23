@@ -18,11 +18,6 @@ public class Comming_Soon_Popup : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OpenPopup()
-    {
-        gameObject.SetActive(true);
-    }
-
     void OnClick_Ok()
     {
         gameObject.SetActive(false);

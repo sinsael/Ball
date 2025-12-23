@@ -8,9 +8,16 @@ public class Title_UI : MonoBehaviour
     [SerializeField] Button achivementsBtn;
     [SerializeField] Button optionBtn;
     [SerializeField] Button quitBtn;
+    [SerializeField] GameObject optionUI;
+    [SerializeField] GameObject commingSoonUI;
     [SerializeField] string gameSceneName = "Selected";
     void Start()
     {
+        Comming_Soon_Popup cspFoundScript = FindFirstObjectByType<Comming_Soon_Popup>(FindObjectsInactive.Include);
+        commingSoonUI = cspFoundScript.gameObject;
+        Option_UI ouFoundscript = FindFirstObjectByType<Option_UI>(FindObjectsInactive.Include);
+        optionUI = ouFoundscript.gameObject;
+
         Time.timeScale = 1f;
         Cursor.visible = true;
         startBtn.onClick.AddListener(OnClick_Start);
@@ -27,13 +34,13 @@ public class Title_UI : MonoBehaviour
     void OnClick_Achivements()
     {
         Debug.Log("Achievements Button Clicked");
-        Comming_Soon_Popup.instance.OpenPopup();
+        commingSoonUI.SetActive(true);
     }
 
     void OnClick_Option()
     {
         Debug.Log("Option Button Clicked");
-        Comming_Soon_Popup.instance.OpenPopup();
+        optionUI.SetActive(true);
     }
     void OnClick_Quit()
     {

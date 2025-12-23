@@ -7,11 +7,15 @@ public class GameClearUI : MonoBehaviour
     [SerializeField] Button nextBtn;
     [SerializeField] Button restartBtn;
     [SerializeField] Button quitBtn;
+    [SerializeField] GameObject commingSoonUI;
     [SerializeField] string mainMenuSceneName = "MainMenu";
 
 
     private void Start()
     {
+        Comming_Soon_Popup foundscript = FindFirstObjectByType<Comming_Soon_Popup>(FindObjectsInactive.Include);
+        commingSoonUI = foundscript.gameObject;
+
         nextBtn.onClick.AddListener(OnClick_Next);
         restartBtn.onClick.AddListener(OnClick_Restart);
         quitBtn.onClick.AddListener(OnClick_Quit);
@@ -24,8 +28,7 @@ public class GameClearUI : MonoBehaviour
         Debug.Log("Next Level Clicked");
         if (currentIndex + 1 >= totalScenes)
         {
-            Debug.Log("´ÙÀ½ ¾À ¾øÀ½");
-            Comming_Soon_Popup.instance.OpenPopup();
+            commingSoonUI.SetActive(true);
         }
         else
         {

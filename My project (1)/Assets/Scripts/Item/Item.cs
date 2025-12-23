@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
         {
            ballSystem.PickUpItem(itemData);
 
-            Destroy(this.gameObject);
+           gameObject.SetActive(false);
         }
     }
 }
