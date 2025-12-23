@@ -112,13 +112,13 @@ public class BallMovement : MonoBehaviour
 
         // 최종 속도 적용 (수평 + 수직)
         rb.linearVelocity = new Vector3(
-            newHorizontalVelocity.x,
-            rb.linearVelocity.y,
-            newHorizontalVelocity.z
+    newHorizontalVelocity.x,
+    rb.linearVelocity.y, // 이 값을 강제로 0으로 만들지 않는 것이 핵심!
+    newHorizontalVelocity.z
         );
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag(GroundTag))
         {
