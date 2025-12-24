@@ -107,7 +107,7 @@ MonoBehaviour:
   rotateX: 0
   rotateY: 1
   rotateZ: 0
-  rotationSpeed: 85.67
+  rotationSpeed: 0
   isFloating: 1
   useEasingForFloating: 1
   floatHeight: 0
@@ -150,4 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a0cad38de0fd64497010282350f264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: d571144808ba7544b966cc25986aeef8, type: 2}

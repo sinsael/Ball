@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CheckPoints : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            StageGameManager.instance.lastCheckPointPos = transform.position;
+            StageGameManager.instance.lastCheckPointPos = transform.position + Vector3.up;
         }
     }
 }

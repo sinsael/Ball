@@ -106,9 +106,11 @@ public class StageGameManager : MonoBehaviour
 
         if (currentGameState == GameState.Paused && state == GameState.GameOver)
         {
-            // 일시정지 상태에서 게임오버로 전환 시 이전 상태를 게임오버로 설정
-            previousGameState = GameState.GameOver;
-            return;
+            if (previousGameState != GameState.GameOver)
+            {
+                previousGameState = GameState.GameOver;
+                return;
+            }
         }
 
         currentGameState = state; // 현재 상태 변경
