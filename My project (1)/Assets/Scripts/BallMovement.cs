@@ -156,9 +156,11 @@ public class BallMovement : MonoBehaviour
         rb.position = targetPos;
         transform.position = targetPos;
 
-        // 컴포넌트 활성화
+        rb.interpolation = RigidbodyInterpolation.None;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        // 렌더러 활성화
         meshRenderer.enabled = true;
-        col.enabled = true;
     }
 
     // 죽음
@@ -174,6 +176,5 @@ public class BallMovement : MonoBehaviour
 
         // 컴포넌트 비활성화
         meshRenderer.enabled = false;
-        col.enabled = false;
     }
 }
