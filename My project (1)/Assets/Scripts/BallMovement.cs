@@ -148,6 +148,7 @@ public class BallMovement : MonoBehaviour
     public void Respawn(Vector3 targetPos)
     {
         // 움직임 초기화
+        rb.isKinematic = true;
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         currentVelocityRef = Vector3.zero;
@@ -161,6 +162,7 @@ public class BallMovement : MonoBehaviour
 
         // 렌더러 활성화
         meshRenderer.enabled = true;
+        rb.isKinematic = false;
     }
 
     // 죽음

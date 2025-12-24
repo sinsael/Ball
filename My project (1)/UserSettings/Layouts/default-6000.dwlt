@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -275,14 +275,14 @@ MonoBehaviour:
     y: 501
     width: 381
     height: 432
-  m_MinSize: {x: 102, y: 126}
-  m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 22}
+  m_MinSize: {x: 232, y: 276}
+  m_MaxSize: {x: 10002, y: 10026}
+  m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
   - {fileID: 22}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1413,9 +1413,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 32.768425, y: 14.19431, z: 38.282627}
+    m_Target: {x: 22.1049, y: 14.640722, z: 5.250887}
     speed: 2
-    m_Value: {x: 32.768425, y: 14.19431, z: 38.282627}
+    m_Value: {x: 22.1049, y: 14.640722, z: 5.250887}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1461,9 +1461,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.010162022, y: -0.97891265, z: 0.06403573, w: -0.1955259}
+    m_Target: {x: -0.07353606, y: -0.9165091, z: 0.2141902, w: -0.33117777}
     speed: 2
-    m_Value: {x: -0.010158446, y: -0.9785682, z: 0.0640132, w: -0.1954571}
+    m_Value: {x: -0.07431977, y: -0.91525316, z: 0.21535118, w: -0.33228296}
   m_Size:
     m_Target: 0.8660254
     speed: 2
@@ -1717,19 +1717,26 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-      - m_Data: 36902
+      - m_Data: 70302
       m_LastClickedID:
-        m_Data: 0
+        m_Data: 70302
       m_ExpandedIDs:
-      - m_Data: -3522
-      - m_Data: -3426
+      - m_Data: -76050
+      - m_Data: -75052
+      - m_Data: -74260
+      - m_Data: -73468
+      - m_Data: -72546
+      - m_Data: -71574
+      - m_Data: -70798
+      - m_Data: -69826
       - m_Data: -1294
-      - m_Data: -12
-      - m_Data: 49682
+      - m_Data: 47684
+      - m_Data: 70362
+      - m_Data: 70372
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Platform
-        m_OriginalName: Platform
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
@@ -1737,10 +1744,10 @@ MonoBehaviour:
           width: 0
           height: 0
         m_UserData:
-          m_Data: 49626
+          m_Data: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
         m_ClientGUIView: {fileID: 10}
@@ -1800,7 +1807,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/com.unity.visualscripting/Editor/VisualScripting.Core/Windows/Sidebars
+    - Assets/Prefabs
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1810,20 +1817,34 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 49
   m_LastFolders:
-  - Packages/com.unity.visualscripting/Editor/VisualScripting.Core/Windows/Sidebars
+  - Assets/Prefabs
   m_LastFoldersGridSize: 49
   m_LastProjectPath: D:\single\Ball\My project (1)
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 3374}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 49448
+    - m_Data: 48842
     m_LastClickedID:
-      m_Data: 49448
+      m_Data: 48842
     m_ExpandedIDs:
     - m_Data: 0
+    - m_Data: 48830
+    - m_Data: 48832
+    - m_Data: 48834
+    - m_Data: 48836
+    - m_Data: 48838
+    - m_Data: 48840
+    - m_Data: 48842
+    - m_Data: 48844
+    - m_Data: 48846
+    - m_Data: 48848
+    - m_Data: 48850
+    - m_Data: 48852
+    - m_Data: 48854
+    - m_Data: 48856
     - m_Data: 48858
     - m_Data: 48860
     - m_Data: 48862
@@ -1849,20 +1870,6 @@ MonoBehaviour:
     - m_Data: 48902
     - m_Data: 48904
     - m_Data: 48906
-    - m_Data: 48908
-    - m_Data: 48910
-    - m_Data: 48912
-    - m_Data: 48914
-    - m_Data: 48916
-    - m_Data: 48918
-    - m_Data: 48920
-    - m_Data: 48922
-    - m_Data: 48924
-    - m_Data: 48926
-    - m_Data: 48928
-    - m_Data: 49380
-    - m_Data: 49450
-    - m_Data: 49452
     - m_Data: 2147483647
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1896,6 +1903,20 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
+    - m_Data: 48830
+    - m_Data: 48832
+    - m_Data: 48834
+    - m_Data: 48836
+    - m_Data: 48838
+    - m_Data: 48840
+    - m_Data: 48842
+    - m_Data: 48844
+    - m_Data: 48846
+    - m_Data: 48848
+    - m_Data: 48850
+    - m_Data: 48852
+    - m_Data: 48854
+    - m_Data: 48856
     - m_Data: 48858
     - m_Data: 48860
     - m_Data: 48862
@@ -1921,17 +1942,6 @@ MonoBehaviour:
     - m_Data: 48902
     - m_Data: 48904
     - m_Data: 48906
-    - m_Data: 48908
-    - m_Data: 48910
-    - m_Data: 48912
-    - m_Data: 48914
-    - m_Data: 48916
-    - m_Data: 48918
-    - m_Data: 48920
-    - m_Data: 48922
-    - m_Data: 48924
-    - m_Data: 48926
-    - m_Data: 48928
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1959,9 +1969,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: -3428
-    m_LastClickedInstanceID: -3428
-    m_HadKeyboardFocusLastEvent: 1
+    - m_Data: 70302
+    m_LastClickedInstanceID: 70302
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: []
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1991,7 +2001,7 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 49
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 148
+  m_DirectoriesAreaWidth: 175
 --- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -2075,7 +2085,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 335
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

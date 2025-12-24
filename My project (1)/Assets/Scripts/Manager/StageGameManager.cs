@@ -18,10 +18,10 @@ public class StageGameManager : MonoBehaviour
 
     GameInput input;
     BallMovement respawn;
-    public GameState currentGameState { get; private set; }
-    public GameState previousGameState;
+    public GameState currentGameState { get; private set; } // 현재 게임상태저장
+    public GameState previousGameState; // 전 게임상태 저장
 
-    public Vector3 lastCheckPointPos;
+    public Vector3 lastCheckPointPos; // 체크포인트 지점 저장
 
     [Header("UI연결")]
     [Tooltip("시작")]
@@ -33,7 +33,7 @@ public class StageGameManager : MonoBehaviour
     [Tooltip("게임클리어")]
     public GameObject GameClearUI = null;
 
-    private List<GameObject> stageItems =  new List<GameObject>();
+    private List<GameObject> stageItems =  new List<GameObject>(); // 스테이지 아이템 저장
 
     private void Awake()
     {

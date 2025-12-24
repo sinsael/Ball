@@ -6,7 +6,7 @@ public class CheckPoints : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StageGameManager.instance.lastCheckPointPos = transform.position + Vector3.up;
+            StageGameManager.instance.lastCheckPointPos = transform.position + Vector3.up * 5;
         }
     }
 }
