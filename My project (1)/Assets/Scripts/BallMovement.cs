@@ -8,7 +8,7 @@ public class BallMovement : MonoBehaviour
     Rigidbody rb;
     GameInput input;
     MeshRenderer meshRenderer;
-    Collider col;
+    BallItemSystem itemSystem;
 
     [Header("카메라")]
     [Tooltip("방향 참조용")]
@@ -38,7 +38,7 @@ public class BallMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
         input = new GameInput();
-        col = GetComponent<Collider>();
+        itemSystem = GetComponent<BallItemSystem>();
         if (cameraContorller == null)
         {
             cameraContorller = FindFirstObjectByType<CinemachineCameraController>();
@@ -152,6 +152,8 @@ public class BallMovement : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         currentVelocityRef = Vector3.zero;
+        itemSystem.currentItemData = null;
+
 
         // 리스폰 구간
         rb.position = targetPos;

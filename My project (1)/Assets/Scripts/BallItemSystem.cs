@@ -14,7 +14,7 @@ public class BallItemSystem : MonoBehaviour
     GameInput input;
 
     [Header("아이템 상태")]
-    [SerializeField] ItemDataSO currentItemData;
+    public ItemDataSO currentItemData;
     float currentHoldTimer = 0f;
 
     bool isHolding = false;

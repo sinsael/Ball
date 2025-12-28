@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 599039540}
   - component: {fileID: 599039539}
   - component: {fileID: 599039538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1053,6 +1053,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1845211160739503294, guid: 9983d90d240421a46a0fd1ebd8959847, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845211160739503294, guid: 9983d90d240421a46a0fd1ebd8959847, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845211160739503294, guid: 9983d90d240421a46a0fd1ebd8959847, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 2290309210762336408, guid: 9983d90d240421a46a0fd1ebd8959847, type: 3}
       propertyPath: m_Name
       value: Camera
@@ -1078,7 +1090,7 @@ GameObject:
   - component: {fileID: 1198254479}
   - component: {fileID: 1198254478}
   - component: {fileID: 1198254477}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (25)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1274,7 +1286,7 @@ GameObject:
   - component: {fileID: 1352472130}
   - component: {fileID: 1352472129}
   - component: {fileID: 1352472128}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (26)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1658,7 +1670,7 @@ GameObject:
   - component: {fileID: 1623460645}
   - component: {fileID: 1623460644}
   - component: {fileID: 1623460643}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1914,7 +1926,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 1475947100448448869, guid: cc643783bd94cb5479903260c9fc6a72, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9396,7 +9408,7 @@ GameObject:
   - component: {fileID: 1813846924}
   - component: {fileID: 1813846923}
   - component: {fileID: 1813846922}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (24)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -9508,7 +9520,7 @@ GameObject:
   - component: {fileID: 1862940420}
   - component: {fileID: 1862940419}
   - component: {fileID: 1862940418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (22)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -9620,7 +9632,7 @@ GameObject:
   - component: {fileID: 1927114190}
   - component: {fileID: 1927114189}
   - component: {fileID: 1927114188}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform (23)
   m_TagString: Ground
   m_Icon: {fileID: 0}
