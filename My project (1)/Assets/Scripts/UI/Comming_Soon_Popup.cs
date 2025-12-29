@@ -15,7 +15,6 @@ public class Comming_Soon_Popup : MonoBehaviour
     {
         Cursor.visible = true;
         okBtn.onClick.AddListener(OnClick_Ok);
-        gameObject.SetActive(false);
     }
 
     void OnClick_Ok()

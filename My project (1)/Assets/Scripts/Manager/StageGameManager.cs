@@ -33,7 +33,8 @@ public class StageGameManager : MonoBehaviour
     [Tooltip("게임클리어")]
     public GameObject GameClearUI = null;
 
-    private List<GameObject> stageItems =  new List<GameObject>(); // 스테이지 아이템 저장
+    private List<GameObject> stageItems = new List<GameObject>(); // 스테이지 아이템 저장
+    private List<GameObject> stageTrap = new List<GameObject>();
 
     private void Awake()
     {
@@ -57,8 +58,12 @@ public class StageGameManager : MonoBehaviour
 
     private void Start()
     {
+        // ▼ [복구] 다시 태그로 찾아서 리스트에 담습니다.
         GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        GameObject[] traps = GameObject.FindGameObjectsWithTag("Trap"); // 아까 만드신 DestroyBlock은 "Trap" 태그를 붙여주세요!
+
         stageItems.AddRange(items);
+        stageTrap.AddRange(traps);
 
         CloseAllUI();
         ChangeGameState(GameState.Start); // 게임 시작 상태로 변경
@@ -66,6 +71,7 @@ public class StageGameManager : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null) lastCheckPointPos = player.transform.position;
     }
+
 
     private void OnEnable()
     {
@@ -165,6 +171,10 @@ public class StageGameManager : MonoBehaviour
         {
             if (item != null) item.SetActive(true);
         }
+        foreach (GameObject trap in stageTrap)
+        {
+            if (trap != null) trap.SetActive(true);
+        }
     }
 
     void CloseAllUI()
@@ -173,6 +183,9 @@ public class StageGameManager : MonoBehaviour
         GamePauseUI?.SetActive(false);
         GameOverUI?.SetActive(false);
         GameClearUI?.SetActive(false);
+
+        if (Option_UI.instance != null) Option_UI.instance.gameObject.SetActive(false);
+        if (Comming_Soon_Popup.instance != null) Comming_Soon_Popup.instance.gameObject.SetActive(false);
     }
 
     public void RequestRespawn()

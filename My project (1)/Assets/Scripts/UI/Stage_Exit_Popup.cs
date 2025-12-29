@@ -11,7 +11,6 @@ public class Stage_Exit_Popup : MonoBehaviour
     {
         yesBtn.onClick.AddListener(OnClick_Yes);
         noBtn.onClick.AddListener(OnClick_No);
-        gameObject.SetActive(false);
     }
 
     void OnClick_Yes()

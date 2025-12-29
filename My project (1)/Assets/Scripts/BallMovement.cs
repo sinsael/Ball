@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 public class BallMovement : MonoBehaviour
 {
     [Header("컴포넌트")]
@@ -17,10 +16,12 @@ public class BallMovement : MonoBehaviour
     public CinemachineCameraController cameraContorller;
 
     [Header("볼 상세설정")]
-    [SerializeField] string GroundTag = "Ground"; // 땅감지 태그
+    public LayerMask groundLayer;
 
     [Tooltip("움직임")]
     public float bounceForce = 5f; // 공 튕기는 힘
+    [Tooltip("벽이나 천장에 닿았을 때 튕기는 힘")]
+    public float wallBounceForce = 5f;
     public float moveSpeed = 5f; // 공 이동 속도
     Vector3 MoveDirection;
 
@@ -29,8 +30,11 @@ public class BallMovement : MonoBehaviour
     Vector3 currentVelocityRef; // 관성 속도 참조
 
     bool cantMove =>
+
         StageGameManager.instance.currentGameState == GameState.GameOver ||
+
         StageGameManager.instance.currentGameState == GameState.Paused ||
+
         StageGameManager.instance.currentGameState == GameState.GameClear;
 
     void Awake()
@@ -39,6 +43,7 @@ public class BallMovement : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         input = new GameInput();
         itemSystem = GetComponent<BallItemSystem>();
+
         if (cameraContorller == null)
         {
             cameraContorller = FindFirstObjectByType<CinemachineCameraController>();
@@ -51,24 +56,16 @@ public class BallMovement : MonoBehaviour
         input.Ball.Move.performed += ctx => MoveDirection = ctx.ReadValue<Vector3>();
         input.Ball.Move.canceled += ctx => MoveDirection = Vector3.zero;
     }
-
     private void OnDisable()
     {
         input.Ball.Disable();
         input.Dispose();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (cantMove) return;
-
     }
 
     void FixedUpdate()
@@ -102,8 +99,11 @@ public class BallMovement : MonoBehaviour
         Vector3 targetMoveDir = (camForward * clampedMoveDir.z) + (camRight * clampedMoveDir.x);
 
         // 이동 방향 벡터 생성
+
         Vector3 movement = targetMoveDir * moveSpeed;
+
         // 현재 수평 속도 벡터 생성
+
         Vector3 newVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         // 부드러운 관성 이동
@@ -112,9 +112,11 @@ public class BallMovement : MonoBehaviour
             movement,
             ref currentVelocityRef,
             inertia
+
         );
 
         // 최종 속도 적용 (수평 + 수직)
+
         rb.linearVelocity = new Vector3(
     newHorizontalVelocity.x,
     rb.linearVelocity.y, // 이 값을 강제로 0으로 만들지 않는 것이 핵심!
@@ -122,17 +124,40 @@ public class BallMovement : MonoBehaviour
         );
     }
 
+    // [추가됨] 벽이나 천장(옆면/아랫면)에 '쾅' 하고 부딪혔을 때 처리
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 땅 레이어인지 확인
+        if ((groundLayer.value & (1 << collision.gameObject.layer)) != 0)
+        {
+            ContactPoint contact = collision.contacts[0];
+
+            // 법선 벡터(Normal)의 y값이 0.7 이하라면 (즉, 윗면이 아니라면)
+            if (contact.normal.y <= 0.7f)
+            {
+                // 벽이 밀어내는 방향(Normal)으로 힘을 '팍' 줍니다.
+                // ForceMode.Impulse는 순간적인 힘을 가할 때 적합합니다.
+                rb.AddForce(contact.normal * wallBounceForce, ForceMode.Impulse);
+            }
+        }
+    }
+
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag(GroundTag))
+        // 충돌한 물체의 레이어가 groundLayer에 포함되어 있는지 비트 연산으로 확인
+        if ((groundLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
-            ContactPoint contact = collision.contacts[0]; // 충돌 지점 정보
+            ContactPoint contact = collision.contacts[0];
 
             if (contact.normal.y > 0.7f)
             {
                 Vector3 currentVel = rb.linearVelocity;
 
-                rb.linearVelocity = new Vector3(currentVel.x, bounceForce, currentVel.z);
+                // 점프 로직 (기존 유지)
+                if (currentVel.y < bounceForce)
+                {
+                    rb.linearVelocity = new Vector3(currentVel.x, bounceForce, currentVel.z);
+                }
             }
         }
     }
@@ -153,7 +178,6 @@ public class BallMovement : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         currentVelocityRef = Vector3.zero;
         itemSystem.currentItemData = null;
-
 
         // 리스폰 구간
         rb.position = targetPos;

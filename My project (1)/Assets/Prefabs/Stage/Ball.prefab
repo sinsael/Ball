@@ -157,8 +157,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ball
   cameraTransform: {fileID: 0}
   cameraContorller: {fileID: 0}
-  GroundTag: Ground
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
   bounceForce: 5
+  wallBounceForce: 5
   moveSpeed: 5
   inertia: 0.4
 --- !u!143 &20021321125986214

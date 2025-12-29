@@ -18,8 +18,6 @@ public class Stage_Select_Popup : MonoBehaviour
     {
         startBtn.onClick.AddListener(OnClick_Start);
         cancleBtn.onClick.AddListener(OnClick_Cancle);
-
-        gameObject.SetActive(false);
     }
 
     public void OpenPopup(int stageNumber)
