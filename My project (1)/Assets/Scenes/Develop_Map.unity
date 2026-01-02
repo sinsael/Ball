@@ -818,6 +818,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2054119904026518123, guid: 53c07d432879d2745badbf10723518b8, type: 3}
   m_PrefabInstance: {fileID: 2873188143429337206}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1032118573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.899474
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6104443
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.029405
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8392549553288142779, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9165814763394565377, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
+      propertyPath: m_Name
+      value: RedPotion Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e49bbf198db6be4285ca69a6433f70d, type: 3}
 --- !u!1 &1109565176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1117,14 @@ PrefabInstance:
     - target: {fileID: 7095218461995651489, guid: 86e211cab0599e246bcee97ad1d35703, type: 3}
       propertyPath: m_Name
       value: PushBlock
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538152064795612692, guid: 86e211cab0599e246bcee97ad1d35703, type: 3}
+      propertyPath: moveTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538152064795612692, guid: 86e211cab0599e246bcee97ad1d35703, type: 3}
+      propertyPath: delayTimer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1349,3 +1414,4 @@ SceneRoots:
   - {fileID: 1109565180}
   - {fileID: 76263655}
   - {fileID: 511846954122901751}
+  - {fileID: 1032118573}
