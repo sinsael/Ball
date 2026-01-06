@@ -14,7 +14,7 @@ public class CinemachineCameraController : MonoBehaviour
     private CinemachineThirdPersonFollow _thirdPersonFollow;
 
     [Header("감도 설정")]
-    [Range(0, 1)]
+    [Range(0, 5)]
     public float mouseSensitivity = 1.5f;
     [Tooltip("상단 회전 최대")]
     public float topClamp = 70.0f;
@@ -60,6 +60,8 @@ public class CinemachineCameraController : MonoBehaviour
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
+
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 1.0f);
     }
 
     void LateUpdate()

@@ -22,6 +22,9 @@ public class Item_DashSO : ItemDataSO
 
     public override void OnUseDown(BallItemSystem user)
     {
+        if (StageGameManager.instance.currentGameState == GameState.Paused || StageGameManager.instance.currentGameState == GameState.GameOver)
+            return;
+
         user.cameraController.SetZoom(zoomAmount, zoomInTime, sideOffset, offSetTime);
 
 
@@ -36,6 +39,9 @@ public class Item_DashSO : ItemDataSO
 
     public override void OnUseUp(BallItemSystem user)
     {
+        if (StageGameManager.instance.currentGameState == GameState.Paused || StageGameManager.instance.currentGameState == GameState.GameOver)
+            return;
+
         if (user.movement != null && user.cameraController != null)
         {
             Vector3 aimDir = user.cameraController.transform.forward;

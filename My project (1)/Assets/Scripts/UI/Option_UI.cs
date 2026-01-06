@@ -38,7 +38,7 @@ public class Option_UI : MonoBehaviour
     {
         // 슬라이더 범위 설정
         sensivitySlider.minValue = 0.1f;
-        sensivitySlider.maxValue = 1.0f;
+        sensivitySlider.maxValue = 5.0f;
 
         // 저장된 감도 불러오기 (없으면 기본값 1.0)
         float savedSens = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
@@ -79,7 +79,7 @@ public class Option_UI : MonoBehaviour
     private void OnSliderChanged(float value)
     {
         ApplySensitivity(value);
-        sensivityInput.text = value.ToString("F1");
+        sensivityInput.text = value.ToString("F3");
     }
 
     // 숫자 직접 입력 시
@@ -92,7 +92,7 @@ public class Option_UI : MonoBehaviour
 
             ApplySensitivity(newValue);
             sensivitySlider.value = newValue;
-            sensivityInput.text = newValue.ToString("F1");
+            sensivityInput.text = newValue.ToString("F3");
         }
     }
 

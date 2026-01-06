@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        collision.gameObject.TryGetComponent<BallMovement>(out BallMovement ball);
+        if (other.TryGetComponent<BallMovement>(out BallMovement ball))
         {
             ball.Die();
         }

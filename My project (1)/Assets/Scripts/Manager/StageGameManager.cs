@@ -18,6 +18,7 @@ public class StageGameManager : MonoBehaviour
 
     GameInput input;
     BallMovement respawn;
+    BallItemSystem ballItem;
     public GameState currentGameState { get; private set; } // 현재 게임상태저장
     public GameState previousGameState; // 전 게임상태 저장
 
@@ -54,6 +55,7 @@ public class StageGameManager : MonoBehaviour
         }
 
         respawn = FindFirstObjectByType<BallMovement>();
+        ballItem = FindFirstObjectByType<BallItemSystem>();
     }
 
     private void Start()
@@ -192,6 +194,8 @@ public class StageGameManager : MonoBehaviour
     {
         ResetStageElements();
 
+
+        ballItem.ResetItemState();
         respawn.Respawn(lastCheckPointPos);
         ChangeGameState(GameState.Playing);
     }

@@ -26,7 +26,7 @@ public class BallItemSystem : MonoBehaviour
 
         cameraController = FindFirstObjectByType<CinemachineCameraController>();
 
-        if(crosshairUI == null )
+        if (crosshairUI == null)
         {
             return;
         }
@@ -48,15 +48,42 @@ public class BallItemSystem : MonoBehaviour
 
     private void Update()
     {
-        if(isHolding && currentItemData != null)
+        if (isHolding && currentItemData != null)
         {
             currentHoldTimer += Time.unscaledDeltaTime;
 
-            if(currentHoldTimer >= currentItemData.maxHoldTime)
+            if (currentHoldTimer >= currentItemData.maxHoldTime)
             {
                 ExecuteItemUp();
             }
         }
+
+    }
+
+    public void ResetItemState()
+    {
+        // 1. 홀드 상태 해제
+        isHolding = false;
+        currentHoldTimer = 0f;
+
+        // 2. 줌 및 시간 강제 초기화 (즉시 복구)
+        if (cameraController != null)
+        {
+            // 시간 0초를 주어 즉시 줌이 풀리게 함
+            cameraController.ResetZoom(0f, 0f);
+        }
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        // 3. UI 끄기
+        if (crosshairUI != null)
+        {
+            crosshairUI.SetActive(false);
+        }
+
+        // (선택사항) 죽으면 들고 있던 아이템도 없애려면 아래 주석 해제
+        // currentItemData = null; 
     }
 
     public void PickUpItem(ItemDataSO newItem)
@@ -84,6 +111,8 @@ public class BallItemSystem : MonoBehaviour
     private void OnUseItemStarted(InputAction.CallbackContext context)
     {
         if (currentItemData == null) return;
+        if (StageGameManager.instance.currentGameState == GameState.Paused || StageGameManager.instance.currentGameState == GameState.GameOver)
+            return;
 
         switch (currentItemData.useType)
         {
@@ -104,6 +133,8 @@ public class BallItemSystem : MonoBehaviour
     private void OnUseItemCanceled(InputAction.CallbackContext context)
     {
         if (currentItemData == null) return;
+        if (StageGameManager.instance.currentGameState == GameState.Paused || StageGameManager.instance.currentGameState == GameState.GameOver)
+            return;
 
         // 홀드형이고, 누르고 있던 상태라면 -> 발사 처리
         if (currentItemData.useType == ItemUseType.Hold && isHolding)
@@ -121,7 +152,7 @@ public class BallItemSystem : MonoBehaviour
 
         currentItemData.OnUseUp(this);
         isHolding = false;
-        currentItemData=null;
+        currentItemData = null;
         currentHoldTimer = 0f;
     }
 }
