@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class BallItemSystem : MonoBehaviour
 {
     [Header("연결 필요")]
-    public BallMovement movement;
+    public BallMainSystem movement;
     public CinemachineCameraController cameraController;
     [Header("조준점")]
     public GameObject crosshairUI;
@@ -21,7 +21,7 @@ public class BallItemSystem : MonoBehaviour
 
     private void Awake()
     {
-        movement = GetComponent<BallMovement>();
+        movement = GetComponent<BallMainSystem>();
         input = new GameInput();
 
         cameraController = FindFirstObjectByType<CinemachineCameraController>();

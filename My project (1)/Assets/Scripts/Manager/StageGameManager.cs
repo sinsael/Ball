@@ -17,7 +17,7 @@ public class StageGameManager : MonoBehaviour
     public static StageGameManager instance;
 
     GameInput input;
-    BallMovement respawn;
+    BallMainSystem respawn;
     BallItemSystem ballItem;
     public GameState currentGameState { get; private set; } // 현재 게임상태저장
     public GameState previousGameState; // 전 게임상태 저장
@@ -36,6 +36,7 @@ public class StageGameManager : MonoBehaviour
 
     private List<GameObject> stageItems = new List<GameObject>(); // 스테이지 아이템 저장
     private List<GameObject> stageTrap = new List<GameObject>();
+    private List<Ball.Button> stageButtons = new List<Ball.Button>();
 
     private void Awake()
     {
@@ -54,18 +55,19 @@ public class StageGameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        respawn = FindFirstObjectByType<BallMovement>();
+        respawn = FindFirstObjectByType<BallMainSystem>();
         ballItem = FindFirstObjectByType<BallItemSystem>();
     }
 
     private void Start()
     {
-        // ▼ [복구] 다시 태그로 찾아서 리스트에 담습니다.
         GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
         GameObject[] traps = GameObject.FindGameObjectsWithTag("Trap"); // 아까 만드신 DestroyBlock은 "Trap" 태그를 붙여주세요!
+        Ball.Button[] buttons = FindObjectsByType<Ball.Button>(FindObjectsSortMode.None);
 
         stageItems.AddRange(items);
         stageTrap.AddRange(traps);
+        stageButtons.AddRange(buttons);
 
         CloseAllUI();
         ChangeGameState(GameState.Start); // 게임 시작 상태로 변경
@@ -176,6 +178,10 @@ public class StageGameManager : MonoBehaviour
         foreach (GameObject trap in stageTrap)
         {
             if (trap != null) trap.SetActive(true);
+        }
+        foreach (var btn in stageButtons)
+        {
+            if (btn != null) btn.ResetButton();
         }
     }
 

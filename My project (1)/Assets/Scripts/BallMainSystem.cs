@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class BallMovement : MonoBehaviour
+public class BallMainSystem : MonoBehaviour
 {
     [Header("컴포넌트")]
     Rigidbody rb;
@@ -99,11 +99,9 @@ public class BallMovement : MonoBehaviour
         Vector3 targetMoveDir = (camForward * clampedMoveDir.z) + (camRight * clampedMoveDir.x);
 
         // 이동 방향 벡터 생성
-
         Vector3 movement = targetMoveDir * moveSpeed;
 
         // 현재 수평 속도 벡터 생성
-
         Vector3 newVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         // 부드러운 관성 이동
@@ -112,7 +110,6 @@ public class BallMovement : MonoBehaviour
             movement,
             ref currentVelocityRef,
             inertia
-
         );
 
         // 최종 속도 적용 (수평 + 수직)
@@ -124,7 +121,6 @@ public class BallMovement : MonoBehaviour
         );
     }
 
-    // [추가됨] 벽이나 천장(옆면/아랫면)에 '쾅' 하고 부딪혔을 때 처리
     private void OnCollisionEnter(Collision collision)
     {
         // 땅 레이어인지 확인
@@ -183,8 +179,7 @@ public class BallMovement : MonoBehaviour
         rb.position = targetPos;
         transform.position = targetPos;
 
-        rb.interpolation = RigidbodyInterpolation.None;
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        Physics.SyncTransforms();
 
         // 렌더러 활성화
         meshRenderer.enabled = true;

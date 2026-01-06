@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameOverUI : MonoBehaviour
 {
-    BallMovement respawn;
+    BallMainSystem respawn;
     GameInput input;
 
     private void Awake()
@@ -11,14 +11,14 @@ public class GameOverUI : MonoBehaviour
         input = new GameInput();
         if(respawn == null)
         {
-            respawn = FindAnyObjectByType<BallMovement>();
+            respawn = FindAnyObjectByType<BallMainSystem>();
         }
     }
 
     private void OnEnable()
     {
         input.Game.Enable();
-        respawn = FindAnyObjectByType<BallMovement>();
+        respawn = FindAnyObjectByType<BallMainSystem>();
     }
 
     private void OnDisable()

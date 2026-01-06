@@ -10,10 +10,7 @@ namespace Ball
 
         private void Start()
         {
-            foreach (var block in Block)
-            {
-                block.SetActive(false);
-            }
+            ResetButton();
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -21,20 +18,26 @@ namespace Ball
             if (isOn)
             {
                 isOn = false;
-                foreach (var block in Block)
-                {
-
-                    block.SetActive(false);
-                }
+                SetBlocks(false);
             }
             else
             {
                 isOn = true;
-                foreach (var block in Block)
-                {
+                SetBlocks(true);
+            }
+        }
 
-                    block.SetActive(true);
-                }
+        public void ResetButton()
+        {
+            isOn = false;
+            SetBlocks(false);
+        }
+
+        void SetBlocks(bool active)
+        {
+            foreach (var block in Block)
+            {
+                block.SetActive(active);
             }
         }
     }

@@ -32,7 +32,7 @@ public class JumpTile : MonoBehaviour
     {
         if (isCoolTime || !other.CompareTag("Player")) return;
 
-        if (other.TryGetComponent<BallMovement>(out BallMovement ball))
+        if (other.TryGetComponent<BallMainSystem>(out BallMainSystem ball))
         {
             isCoolTime = true;
 
